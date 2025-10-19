@@ -1,4 +1,5 @@
 using UnityEngine;
+using System; // Needed for Action
 
 public class Health : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class Health : MonoBehaviour
 
 	public bool destroyOnDeath = true;
 	public GameObject deathEffect;
+
+	// ? Event that triggers when taking damage
+	public event Action<float> OnDamaged;
 
 	private void Awake()
 	{
@@ -20,13 +24,11 @@ public class Health : MonoBehaviour
 		currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 		Debug.Log($"{gameObject.name} took {amount} damage (HP: {currentHealth}/{maxHealth})");
 
+		// ? Invoke damage event
+		OnDamaged?.Invoke(amount);
+
 		if (currentHealth <= 0)
 			Die();
-	}
-
-	public void Heal(float amount)
-	{
-		currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
 	}
 
 	private void Die()

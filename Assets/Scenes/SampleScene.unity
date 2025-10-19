@@ -515,6 +515,7 @@ GameObject:
   - component: {fileID: 1458186279}
   - component: {fileID: 1458186285}
   - component: {fileID: 1458186284}
+  - component: {fileID: 1458186286}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -653,6 +654,20 @@ MonoBehaviour:
   maxHealth: 100
   destroyOnDeath: 1
   deathEffect: {fileID: 0}
+--- !u!114 &1458186286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458186278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1da18b4c73f0ab4db8341aa2e99074b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashColor: {r: 1, g: 0, b: 0, a: 0.039215688}
+  flashDuration: 0.5
 --- !u!1 &1500672973 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5138796652071943231, guid: ba84f35b1ecbd1a4d97689e527e67054, type: 3}
