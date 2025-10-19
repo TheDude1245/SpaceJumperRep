@@ -1,25 +1,37 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class EnemyChase : MonoBehaviour
 {
 	[Header("References")]
-	public Transform player; // assign your Player cube here in Inspector
+	public Transform player; // assign your Player cube here
+	public float damageAmount = 10f;
 
 	[Header("Detection Settings")]
 	public float detectionRange = 10f;
-	public float fieldOfView = 90f; // degrees
+	public float fieldOfView = 90f;
 	public float stopDistance = 1.5f;
 
 	[Header("Movement Settings")]
 	public float moveSpeed = 3f;
 	public float rotationSpeed = 5f;
 
+	[Header("Attack Settings")]
+	public float attackCooldown = 1.5f; // seconds between attacks
+	private float lastAttackTime;
+
 	private Rigidbody rb;
+	private Health playerHealth;
 
 	private void Awake()
 	{
 		rb = GetComponent<Rigidbody>();
+	}
+
+	private void Start()
+	{
+		if (player != null)
+			playerHealth = player.GetComponent<Health>();
 	}
 
 	private void FixedUpdate()
@@ -29,14 +41,12 @@ public class EnemyChase : MonoBehaviour
 		Vector3 directionToPlayer = (player.position - transform.position).normalized;
 		float distanceToPlayer = Vector3.Distance(player.position, transform.position);
 
-		// Check if player is within range
 		if (distanceToPlayer <= detectionRange)
 		{
-			// Check if player is within field of view
 			float angle = Vector3.Angle(transform.forward, directionToPlayer);
 			if (angle <= fieldOfView / 2f)
 			{
-				// Rotate toward player smoothly
+				// Rotate smoothly toward player
 				Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
 				rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
 
@@ -46,11 +56,33 @@ public class EnemyChase : MonoBehaviour
 					Vector3 move = directionToPlayer * moveSpeed * Time.fixedDeltaTime;
 					rb.MovePosition(rb.position + move);
 				}
+				else
+				{
+					// Attack if cooldown is ready
+					TryAttack();
+				}
 			}
 		}
 	}
 
-	// Optional: visualize detection range + FOV
+	private void TryAttack()
+	{
+		if (Time.time - lastAttackTime >= attackCooldown)
+		{
+			lastAttackTime = Time.time;
+			Attack();
+		}
+	}
+
+	private void Attack()
+	{
+		if (playerHealth != null)
+		{
+			playerHealth.TakeDamage(damageAmount);
+			Debug.Log($"{gameObject.name} attacked the player for {damageAmount} damage!");
+		}
+	}
+
 	private void OnDrawGizmosSelected()
 	{
 		Gizmos.color = Color.yellow;
