@@ -42,7 +42,14 @@ public class FlashOnHit : MonoBehaviour
 	private IEnumerator FlashRoutine()
 	{
 		materialInstance.color = flashColor;
-		yield return new WaitForSeconds(flashDuration);
-		materialInstance.color = originalColor;
+
+		float t = 0f;
+		while (t < 1f)
+		{
+			t += Time.deltaTime / flashDuration;
+			materialInstance.color = Color.Lerp(flashColor, originalColor, t);
+			yield return null;
+		}
 	}
+
 }
