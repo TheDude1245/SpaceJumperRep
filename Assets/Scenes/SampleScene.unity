@@ -129,7 +129,6 @@ GameObject:
   m_Component:
   - component: {fileID: 247305808}
   - component: {fileID: 247305809}
-  - component: {fileID: 247305810}
   m_Layer: 0
   m_Name: CameraRig
   m_TagString: Untagged
@@ -168,24 +167,6 @@ MonoBehaviour:
   target: {fileID: 1587360997}
   offset: {x: 0, y: 2, z: -3}
   followSpeed: 5
---- !u!114 &247305810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 247305807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be2c579494419bb49aa2190a2a4b1d04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1587360997}
-  fadeSpeed: 10
-  targetAlpha: 0.2
-  fadedRenderers: []
-  obstacleMask:
-    m_Bits: 0
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -805,7 +786,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4291, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2069982614}
@@ -851,6 +832,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  rotationSpeed: 10
 --- !u!114 &1587361000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -957,13 +939,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2069982613}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.387, y: 0, z: 0}
-  m_LocalScale: {x: 1.8241, y: 0.23738, z: 0.37141}
+  m_LocalRotation: {x: -0, y: -0.7070851, z: -0, w: 0.7071286}
+  m_LocalPosition: {x: 0, y: 0, z: 0.991}
+  m_LocalScale: {x: 1.0149012, y: 0.23738, z: 0.37141}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1587360997}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -89.996, z: 0}
 --- !u!114 &2069982615
 MonoBehaviour:
   m_ObjectHideFlags: 0

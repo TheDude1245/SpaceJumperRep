@@ -1,9 +1,12 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // Required for the new Input System
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+	[Header("Movement Settings")]
 	public float moveSpeed = 5f;
+	public float rotationSpeed = 10f; // how fast to rotate toward movement direction
+
 	private PlayerControls controls;
 	private Vector2 moveInput;
 	private Rigidbody rb;
@@ -28,7 +31,17 @@ public class PlayerMovement : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
-		rb.MovePosition(rb.position + move * moveSpeed * Time.fixedDeltaTime);
+		Vector3 moveDirection = new Vector3(moveInput.x, 0, moveInput.y);
+
+		if (moveDirection.magnitude > 0.1f)
+		{
+			// Move the player
+			Vector3 move = moveDirection.normalized * moveSpeed * Time.fixedDeltaTime;
+			rb.MovePosition(rb.position + move);
+
+			// Rotate smoothly toward movement direction
+			Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+			rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
+		}
 	}
 }
