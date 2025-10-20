@@ -109,6 +109,42 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack.H"",
+                    ""type"": ""Button"",
+                    ""id"": ""af3f5c26-96e3-417c-b8c0-e3506d3ad151"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack.J"",
+                    ""type"": ""Button"",
+                    ""id"": ""178bed09-9f18-4c4a-8408-43f5423340a0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack.K"",
+                    ""type"": ""Button"",
+                    ""id"": ""daa636fb-123d-41b5-a80f-5278cb2be893"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack.L"",
+                    ""type"": ""Button"",
+                    ""id"": ""898bee31-ea90-45d3-b67b-ba24e9f0191d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -177,6 +213,50 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d5d7909d-65ba-410d-8300-c201fc84b22e"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack.J"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""23de8318-b158-46a6-8a46-a9a0270b4a17"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack.K"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""61c8e0e9-1de9-4765-a4f0-5579da2c6b50"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack.L"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f827e25c-e221-4e4f-bd0c-ac43f96f36c8"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack.H"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -187,6 +267,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_AttackH = m_Player.FindAction("Attack.H", throwIfNotFound: true);
+        m_Player_AttackJ = m_Player.FindAction("Attack.J", throwIfNotFound: true);
+        m_Player_AttackK = m_Player.FindAction("Attack.K", throwIfNotFound: true);
+        m_Player_AttackL = m_Player.FindAction("Attack.L", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -269,6 +353,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_AttackH;
+    private readonly InputAction m_Player_AttackJ;
+    private readonly InputAction m_Player_AttackK;
+    private readonly InputAction m_Player_AttackL;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -288,6 +376,22 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Jump".
         /// </summary>
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/AttackH".
+        /// </summary>
+        public InputAction @AttackH => m_Wrapper.m_Player_AttackH;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/AttackJ".
+        /// </summary>
+        public InputAction @AttackJ => m_Wrapper.m_Player_AttackJ;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/AttackK".
+        /// </summary>
+        public InputAction @AttackK => m_Wrapper.m_Player_AttackK;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/AttackL".
+        /// </summary>
+        public InputAction @AttackL => m_Wrapper.m_Player_AttackL;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -320,6 +424,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @AttackH.started += instance.OnAttackH;
+            @AttackH.performed += instance.OnAttackH;
+            @AttackH.canceled += instance.OnAttackH;
+            @AttackJ.started += instance.OnAttackJ;
+            @AttackJ.performed += instance.OnAttackJ;
+            @AttackJ.canceled += instance.OnAttackJ;
+            @AttackK.started += instance.OnAttackK;
+            @AttackK.performed += instance.OnAttackK;
+            @AttackK.canceled += instance.OnAttackK;
+            @AttackL.started += instance.OnAttackL;
+            @AttackL.performed += instance.OnAttackL;
+            @AttackL.canceled += instance.OnAttackL;
         }
 
         /// <summary>
@@ -337,6 +453,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @AttackH.started -= instance.OnAttackH;
+            @AttackH.performed -= instance.OnAttackH;
+            @AttackH.canceled -= instance.OnAttackH;
+            @AttackJ.started -= instance.OnAttackJ;
+            @AttackJ.performed -= instance.OnAttackJ;
+            @AttackJ.canceled -= instance.OnAttackJ;
+            @AttackK.started -= instance.OnAttackK;
+            @AttackK.performed -= instance.OnAttackK;
+            @AttackK.canceled -= instance.OnAttackK;
+            @AttackL.started -= instance.OnAttackL;
+            @AttackL.performed -= instance.OnAttackL;
+            @AttackL.canceled -= instance.OnAttackL;
         }
 
         /// <summary>
@@ -391,5 +519,33 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnJump(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Attack.H" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAttackH(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Attack.J" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAttackJ(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Attack.K" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAttackK(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Attack.L" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAttackL(InputAction.CallbackContext context);
     }
 }
