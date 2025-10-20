@@ -1,132 +1,181 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(NavMeshAgent))]
 public class EnemyChase : MonoBehaviour
 {
 	[Header("References")]
 	public Transform player;
+
+	[Header("Sensing")]
+	public float senseRange = 12f;
+	public LayerMask visionBlockers; // set to Default
+
+	[Header("Chase / Attack")]
+	public float attackRange = 1.6f;
+	public float attackCooldown = 1.5f;
 	public float damageAmount = 10f;
 
-	[Header("Detection Settings")]
-	public float detectionRange = 10f;
-	public float fieldOfView = 90f;
-	public float passiveRange = 4f;
-	public float stopDistance = 1.5f;
-	public LayerMask obstructionMask; // 🧠 Added
+	[Header("Rotation")]
+	public float turnSpeed = 10f;
 
-	[Header("Movement Settings")]
-	public float moveSpeed = 3f;
-	public float rotationSpeed = 5f;
+	private enum EnemyState { Idle, Chasing, Returning }
+	private EnemyState state = EnemyState.Idle;
 
-	[Header("Attack Settings")]
-	public float attackCooldown = 1.5f;
-	private float lastAttackTime;
-
-	private Rigidbody rb;
+	private NavMeshAgent agent;
 	private Health playerHealth;
+	private Vector3 spawnPos;
+	private float lastAttackTime;
+	private float loseSightTimer;
+	private const float loseSightDelay = 2f;
 
-	private void Awake()
+	void Awake()
 	{
-		rb = GetComponent<Rigidbody>();
-	}
+		agent = GetComponent<NavMeshAgent>();
+		agent.updateRotation = false;
+		spawnPos = transform.position;
 
-	private void Start()
-	{
-		if (player != null)
-			playerHealth = player.GetComponent<Health>();
-	}
-
-	private void FixedUpdate()
-	{
-		if (player == null) return;
-
-		Vector3 directionToPlayer = (player.position - transform.position).normalized;
-		float distanceToPlayer = Vector3.Distance(player.position, transform.position);
-
-		// 👁 Vision (FOV) check
-		bool canSeePlayer = false;
-		if (distanceToPlayer <= detectionRange)
+		var rb = GetComponent<Rigidbody>();
+		if (rb)
 		{
-			float angle = Vector3.Angle(transform.forward, directionToPlayer);
-			if (angle <= fieldOfView / 2f)
-			{
-				Vector3 origin = transform.position + Vector3.up * 0.5f;
-				Vector3 target = player.position + Vector3.up * 0.5f;
-
-				if (Physics.Raycast(origin, (target - origin).normalized, out RaycastHit hit, detectionRange))
-				{
-					if (hit.transform == player)
-						canSeePlayer = true;
-				}
-			}
-		}
-
-		// 🌀 Passive detection (proximity + line-of-sight check)
-		bool canSensePlayer = false;
-		if (distanceToPlayer <= passiveRange)
-		{
-			Vector3 origin = transform.position + Vector3.up * 0.5f;
-			Vector3 target = player.position + Vector3.up * 0.5f;
-
-			if (Physics.Raycast(origin, (target - origin).normalized, out RaycastHit hit, passiveRange))
-			{
-				if (hit.transform == player)
-					canSensePlayer = true;
-			}
-		}
-
-		// ✅ Combined logic
-		bool shouldChase = canSeePlayer || canSensePlayer;
-
-		if (shouldChase)
-		{
-			Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
-			rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
-
-			if (distanceToPlayer > stopDistance)
-			{
-				Vector3 move = directionToPlayer * moveSpeed * Time.fixedDeltaTime;
-				rb.MovePosition(rb.position + move);
-			}
-			else
-			{
-				TryAttack();
-			}
+			rb.isKinematic = true;
+			rb.useGravity = true;
+			rb.interpolation = RigidbodyInterpolation.Interpolate;
 		}
 	}
 
-
-	private void TryAttack()
+	void Start()
 	{
-		if (Time.time - lastAttackTime >= attackCooldown)
+		if (player) playerHealth = player.GetComponent<Health>();
+	}
+
+	void Update()
+	{
+		if (!player || !agent.isOnNavMesh) return;
+
+		float dist = Vector3.Distance(transform.position, player.position);
+		bool canSee = CanSeePlayer(dist);
+
+		// 👇 allow “interrupt” from Returning → Chasing if player re-enters range
+		if (state == EnemyState.Returning && canSee)
 		{
-			lastAttackTime = Time.time;
-			Attack();
+			BeginChase();
+			return;
+		}
+
+		switch (state)
+		{
+			case EnemyState.Idle:
+				if (canSee) BeginChase();
+				break;
+
+			case EnemyState.Chasing:
+				UpdateChase(dist, canSee);
+				break;
+
+			case EnemyState.Returning:
+				UpdateReturn();
+				break;
+		}
+
+		// smooth facing
+		if (agent.velocity.sqrMagnitude > 0.01f)
+		{
+			var look = Quaternion.LookRotation(agent.velocity.normalized);
+			transform.rotation = Quaternion.Slerp(transform.rotation, look, Time.deltaTime * turnSpeed);
 		}
 	}
 
-	private void Attack()
+	bool CanSeePlayer(float dist)
 	{
+		if (dist > senseRange) return false;
+
+		Vector3 from = transform.position + Vector3.up * 0.5f;
+		Vector3 to = player.position + Vector3.up * 0.5f;
+
+		if (Physics.Linecast(from, to, out RaycastHit hit, visionBlockers, QueryTriggerInteraction.Ignore))
+			return hit.transform == player;
+
+		return true;
+	}
+
+	void BeginChase()
+	{
+		state = EnemyState.Chasing;
+		agent.isStopped = false;
+		agent.SetDestination(player.position);
+	}
+
+	void UpdateChase(float dist, bool canSee)
+	{
+		if (!canSee)
+		{
+			loseSightTimer += Time.deltaTime;
+			if (loseSightTimer >= loseSightDelay)
+			{
+				loseSightTimer = 0f;
+				BeginReturn();
+				return;
+			}
+		}
+		else loseSightTimer = 0f;
+
+		if (dist > attackRange)
+		{
+			if (agent.isStopped) agent.isStopped = false;
+			if (!agent.pathPending)
+				agent.SetDestination(player.position);
+		}
+		else
+		{
+			if (!agent.isStopped) agent.isStopped = true;
+			FaceTarget(player.position);
+			TryAttack();
+		}
+	}
+
+	void BeginReturn()
+	{
+		state = EnemyState.Returning;
+		agent.isStopped = false;
+		agent.SetDestination(spawnPos);
+	}
+
+	void UpdateReturn()
+	{
+		if (Vector3.Distance(transform.position, spawnPos) <= 0.3f)
+		{
+			agent.ResetPath();
+			agent.isStopped = true;
+			state = EnemyState.Idle;
+		}
+	}
+
+	void TryAttack()
+	{
+		if (Time.time - lastAttackTime < attackCooldown) return;
+		lastAttackTime = Time.time;
+
 		if (playerHealth != null)
-		{
 			playerHealth.TakeDamage(damageAmount);
-			Debug.Log($"{gameObject.name} attacked the player for {damageAmount} damage!");
+	}
+
+	void FaceTarget(Vector3 pos)
+	{
+		Vector3 dir = pos - transform.position;
+		dir.y = 0f;
+		if (dir.sqrMagnitude > 0.001f)
+		{
+			var look = Quaternion.LookRotation(dir.normalized);
+			transform.rotation = Quaternion.Slerp(transform.rotation, look, Time.deltaTime * turnSpeed);
 		}
 	}
 
-	private void OnDrawGizmosSelected()
+	void OnDrawGizmosSelected()
 	{
-		Gizmos.color = Color.yellow;
-		Gizmos.DrawWireSphere(transform.position, detectionRange);
-
 		Gizmos.color = Color.cyan;
-		Gizmos.DrawWireSphere(transform.position, passiveRange);
-
-		Vector3 leftBoundary = Quaternion.Euler(0, -fieldOfView / 2f, 0) * transform.forward;
-		Vector3 rightBoundary = Quaternion.Euler(0, fieldOfView / 2f, 0) * transform.forward;
-
+		Gizmos.DrawWireSphere(transform.position, senseRange);
 		Gizmos.color = Color.red;
-		Gizmos.DrawRay(transform.position, leftBoundary * detectionRange);
-		Gizmos.DrawRay(transform.position, rightBoundary * detectionRange);
+		Gizmos.DrawWireSphere(transform.position, attackRange);
 	}
 }
