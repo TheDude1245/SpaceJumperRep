@@ -1,21 +1,20 @@
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Renderer))]
+
 public class FlashOnHit : MonoBehaviour
 {
 	[Header("Flash Settings")]
 	public Color flashColor = Color.red;
 	public float flashDuration = 0.1f;
 
-	private Renderer rend;
+	public Renderer rend;
 	private Color originalColor;
 	private Material materialInstance;
 
 	private void Awake()
 	{
 		// Get renderer and create a material instance (so we don't edit shared material)
-		rend = GetComponent<Renderer>();
 		materialInstance = rend.material;
 		originalColor = materialInstance.color;
 
