@@ -289,6 +289,11 @@ MonoBehaviour:
   target: {fileID: 1587360997}
   offset: {x: 0, y: 2, z: -3}
   followSpeed: 5
+  rotationLerp: 4
+  hasZoneOffset: 0
+  zoneOffset: {x: 0, y: 0, z: 0}
+  hasZoneRotation: 0
+  zoneRotation: {x: 0, y: 0, z: 0}
 --- !u!1 &322639193 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ba84f35b1ecbd1a4d97689e527e67054, type: 3}
@@ -1811,6 +1816,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  mainCamera: {fileID: 330585545}
 --- !u!114 &1587361000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1984,6 +1990,76 @@ MonoBehaviour:
   flashColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.1
   rend: {fileID: 410327975}
+--- !u!1 &1703257508
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1703257511}
+  - component: {fileID: 1703257510}
+  - component: {fileID: 1703257509}
+  m_Layer: 0
+  m_Name: CameraZone_Bridge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1703257509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703257508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b711e1e93fa7083448337d128041fbf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overrideOffset: 1
+  zoneOffset: {x: 0, y: 10, z: -12}
+  overrideRotation: 1
+  zoneRotation: {x: 0, y: 90, z: 0}
+--- !u!65 &1703257510
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703257508}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 20.401388, y: 20.401388, z: 39.326473}
+  m_Center: {x: -9.700694, y: 0, z: 9.462542}
+--- !u!4 &1703257511
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703257508}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -27.7, y: 0, z: 18.11}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2028336530
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2109,3 +2185,4 @@ SceneRoots:
   - {fileID: 1458186283}
   - {fileID: 1413122510}
   - {fileID: 231240089}
+  - {fileID: 1703257511}

@@ -14,6 +14,9 @@ public class PlayerMovement : MonoBehaviour
 	public float groundCheckRadius = 0.3f;
 	public LayerMask groundLayer;
 
+	[Header("Camera Reference")]
+	public Camera mainCamera; // assign Main Camera here
+
 	private PlayerControls controls;
 	private Vector2 moveInput;
 	private Rigidbody rb;
@@ -25,6 +28,12 @@ public class PlayerMovement : MonoBehaviour
 	{
 		controls = new PlayerControls();
 		rb = GetComponent<Rigidbody>();
+	}
+
+	private void Start()
+	{
+		if (mainCamera == null)
+			mainCamera = Camera.main;
 	}
 
 	private void OnEnable()
@@ -49,8 +58,18 @@ public class PlayerMovement : MonoBehaviour
 		// --- GROUNDCHECK ---
 		isGrounded = Physics.CheckSphere(groundCheckPoint.position, groundCheckRadius, groundLayer);
 
-		// --- MOVEMENT ---
-		Vector3 moveDirection = new Vector3(moveInput.x, 0, moveInput.y);
+		// --- CAMERA-RELATIVE MOVEMENT ---
+		Vector3 camForward = mainCamera.transform.forward;
+		Vector3 camRight = mainCamera.transform.right;
+
+		// Flatten to ground plane (ignore camera tilt)
+		camForward.y = 0;
+		camRight.y = 0;
+		camForward.Normalize();
+		camRight.Normalize();
+
+		// Convert input to camera-space
+		Vector3 moveDirection = (camRight * moveInput.x + camForward * moveInput.y);
 
 		if (moveDirection.magnitude > 0.1f)
 		{
