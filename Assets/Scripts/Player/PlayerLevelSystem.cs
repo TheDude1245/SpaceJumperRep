@@ -5,28 +5,49 @@ public class PlayerLevelSystem : MonoBehaviour
 	[Header("Level Settings")]
 	public int level = 1;
 	public float currentExp = 0f;
-	public float expToNextLevel = 100f; // EXP needed for level 2
+	public float expToNextLevel = 100f;
 
 	public delegate void ExpChanged();
 	public event ExpChanged OnExpChanged;
 
+	public bool HasWrappedThisFrame { get; private set; }
+	public float OverflowExp { get; private set; }
+
 	public void AddExp(float amount)
 	{
+		HasWrappedThisFrame = false;
+		OverflowExp = 0f;
+
 		currentExp += amount;
 
-		// Level Up
-		while (currentExp >= expToNextLevel)
+		if (currentExp >= expToNextLevel)
 		{
-			currentExp -= expToNextLevel;
-			level++;
+			// Track leftover BEFORE resetting
+			OverflowExp = currentExp - expToNextLevel;
 
-			// Optional EXP scaling
-			expToNextLevel *= 1.2f;
+			// Cap EXP so UI can animate up to full
+			currentExp = expToNextLevel;
 
-			Debug.Log($"LEVEL UP! New level: {level}");
+			HasWrappedThisFrame = true;
 		}
 
 		OnExpChanged?.Invoke();
+	}
+
+	public void CompleteLevelUp()
+	{
+		// Called by UI when it visually reaches 100%
+
+		level++;
+		expToNextLevel *= 1.25f;
+
+		// Reset to 0 for leftover fill
+		currentExp = 0f;
+
+		if (OverflowExp > 0)
+		{
+			AddExp(OverflowExp);
+		}
 	}
 
 	public float GetExpPercent()
