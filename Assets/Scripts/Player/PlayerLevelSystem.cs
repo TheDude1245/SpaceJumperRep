@@ -10,6 +10,8 @@ public class PlayerLevelSystem : MonoBehaviour
 	public delegate void ExpChanged();
 	public event ExpChanged OnExpChanged;
 
+	public event System.Action OnLevelUp;
+
 	public bool HasWrappedThisFrame { get; private set; }
 	public float OverflowExp { get; private set; }
 
@@ -36,12 +38,14 @@ public class PlayerLevelSystem : MonoBehaviour
 
 	public void CompleteLevelUp()
 	{
-		// Called by UI when it visually reaches 100%
-
+		// Level goes up
 		level++;
 		expToNextLevel *= 1.25f;
 
-		// Reset to 0 for leftover fill
+		// Notify listeners (e.g., the Health script)
+		OnLevelUp?.Invoke();
+
+		// Reset EXP to 0 before applying leftover
 		currentExp = 0f;
 
 		if (OverflowExp > 0)
