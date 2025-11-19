@@ -5,12 +5,17 @@ public class Health : MonoBehaviour
 {
 	[Header("Health Settings")]
 	public float maxHealth = 100f;
-	private float currentHealth;
+	public float currentHealth;
 
+	[Header("Death Settings")]
 	public bool destroyOnDeath = true;
 	public GameObject deathEffect;
 
-	// ? Event that triggers when taking damage
+	[Header("Experience Reward")]
+	[SerializeField] private float expReward = 0f; // EXP given when this entity dies
+	public float ExpReward => expReward; // Read-only property
+
+	// Event triggered when taking damage
 	public event Action<float> OnDamaged;
 
 	private void Awake()
@@ -24,7 +29,7 @@ public class Health : MonoBehaviour
 		currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 		Debug.Log($"{gameObject.name} took {amount} damage (HP: {currentHealth}/{maxHealth})");
 
-		// ? Invoke damage event
+		// Trigger damage event (flash, etc.)
 		OnDamaged?.Invoke(amount);
 
 		if (currentHealth <= 0)
@@ -34,8 +39,20 @@ public class Health : MonoBehaviour
 	private void Die()
 	{
 		Debug.Log($"{gameObject.name} died!");
-		if (deathEffect)
+
+		// Spawn death effect
+		if (deathEffect != null)
 			Instantiate(deathEffect, transform.position, Quaternion.identity);
+
+		// Award EXP to Player
+		PlayerLevelSystem levelSystem = FindAnyObjectByType<PlayerLevelSystem>();
+		if (levelSystem != null)
+		{
+			Debug.Log($"Gave {expReward} EXP to player");
+			levelSystem.AddExp(expReward);
+		}
+
+		// Destroy object
 		if (destroyOnDeath)
 			Destroy(gameObject);
 	}
