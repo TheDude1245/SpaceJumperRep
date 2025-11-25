@@ -7,8 +7,28 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: All_Colors
+    second: {fileID: 2100000, guid: 22c94fb5d7818a5439a448392156346b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: All_textures
     second: {fileID: 2100000, guid: 55ccfd60592fe2e49af028b23c9bed5b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: All_textures.001
+    second: {fileID: 2100000, guid: 1a899e0e5803f1443a2ad6e6896b1310, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Grass_Text
+    second: {fileID: 2100000, guid: 6b0e27c264873744286f8b87adad8379, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wood
+    second: {fileID: 2100000, guid: fe22fc36f73a8fd46b9194af91ad7d99, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
