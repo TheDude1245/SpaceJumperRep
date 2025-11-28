@@ -13732,10 +13732,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b711e1e93fa7083448337d128041fbf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overrideOffset: 0
-  zoneOffset: {x: 0, y: 10, z: -12}
-  overrideRotation: 0
-  zoneRotation: {x: 25, y: 45, z: 0}
+  overrideOffset: 1
+  zoneOffset: {x: 0, y: 5, z: -8}
+  overrideRotation: 1
+  zoneRotation: {x: 0, y: -90, z: 0}
 --- !u!65 &1602235292
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13751,12 +13751,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.4505248, y: 1, z: 3.594068}
-  m_Center: {x: -0.380932, y: 0, z: -0.36094633}
+  m_Size: {x: 201.47852, y: 77.52163, z: 304.78348}
+  m_Center: {x: -26.957867, y: 28.560127, z: -15.999566}
 --- !u!1 &1611572390
 GameObject:
   m_ObjectHideFlags: 0
