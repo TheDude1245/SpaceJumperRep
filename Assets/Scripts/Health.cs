@@ -3,7 +3,8 @@ using System; // Needed for Action
 
 public class Health : MonoBehaviour
 {
-	[Header("Entity Type")]
+
+    [Header("Entity Type")]
 	public bool isPlayer = false;
 
 	[Header("Health Settings")]
@@ -47,7 +48,7 @@ public class Health : MonoBehaviour
 		Debug.Log($"{gameObject.name} healed {amount}. HP: {currentHealth}/{maxHealth}");
 	}
 
-	public void TakeDamage(float amount)
+    public void TakeDamage(float amount)
 	{
 		currentHealth -= amount;
 		currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);

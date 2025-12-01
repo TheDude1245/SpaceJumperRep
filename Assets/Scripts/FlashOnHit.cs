@@ -5,8 +5,8 @@ using System.Collections;
 public class FlashOnHit : MonoBehaviour
 {
 	[Header("Flash Settings")]
-	public Color flashColor = Color.red;
-	public float flashDuration = 0.1f;
+	public Color flashColor = Color.blue;
+	public float flashDuration = 0.2f;
 
 	public Renderer rend;
 	private Color originalColor;
