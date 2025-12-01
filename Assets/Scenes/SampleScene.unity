@@ -11327,7 +11327,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.82
-  m_Speed: 10
+  m_Speed: 6
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -19087,7 +19087,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: facdbe41de3602444ab3af7aef8ec4f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 25
+  damageAmount: 24
   destroyOnHit: 0
 --- !u!64 &1528200941
 MeshCollider:
@@ -19266,8 +19266,8 @@ MonoBehaviour:
   attackJHitbox: {fileID: 1476267235}
   attackKHitbox: {fileID: 1089998835}
   attackLHitbox: {fileID: 1528200932}
-  attackDuration: 0.5
-  cooldown: 1
+  attackDuration: 0.3
+  cooldown: 0.3
 --- !u!114 &1587361001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20452,7 +20452,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.82
-  m_Speed: 10
+  m_Speed: 6
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -21296,7 +21296,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.82
-  m_Speed: 10
+  m_Speed: 6
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -21760,7 +21760,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.82
-  m_Speed: 1.5
+  m_Speed: 6
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -21789,7 +21789,7 @@ MonoBehaviour:
   visionBlockers:
     serializedVersion: 2
     m_Bits: 4294967295
-  attackRange: 14
+  attackRange: 10
   attackCooldown: 4
   damageAmount: 20
   turnSpeed: 5
@@ -21821,7 +21821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 0
-  maxHealth: 200
+  maxHealth: 500
   currentHealth: 0
   destroyOnDeath: 1
   deathEffect: {fileID: 0}
@@ -27505,7 +27505,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.82
-  m_Speed: 10
+  m_Speed: 6
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 120
