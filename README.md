@@ -17,7 +17,7 @@ The idea of the project is a "remaster" (but worse) of the popular game-franchis
 - Clone or Download the project
 - The game requires a computer with a keyboard
 
-`Project Parts`
+Project Parts
 **Scripts** 
 - CameraMoving – used for rotation and zooming of the camera
 - ChangeScore – used for updating the UI
