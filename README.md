@@ -1,6 +1,6 @@
 # SpaceJumperRep
 
-**Overview of the Game**
+## **Overview of the Game**
 The idea of the project is a "remaster" (but worse) of the popular game-franchise called Skylanders. The player is set in a world that feels open, filled with life, including various monsters which the player has the defeat. The player guides a fire-element-character in a 3D-world, using keyboard controls (WASD+space + h,j,k,l for attacks). The goal of the game is to explore, collect up to 20.000 coins, and defeat the inal boss. 
 
 **The main parts of the game are:**
@@ -17,7 +17,7 @@ The idea of the project is a "remaster" (but worse) of the popular game-franchis
 - Clone or Download the project
 - The game requires a computer with a keyboard
 
-Project Parts
+## Project Parts
 **Scripts** 
 - CameraMoving – used for rotation and zooming of the camera
 - ChangeScore – used for updating the UI
