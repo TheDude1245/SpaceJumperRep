@@ -12,22 +12,25 @@ The idea of the project is a "remaster" (but worse) of the popular game-franchis
 - Lives – _the player starts with 3 lives, once all lives are removed the game ends_
 
 **Game features:**
-Positions of food and enemies are randomly selected each time helping with replayability.
-The difficulty of the game changes with time, making it harder
-The game keeps track of a score
-Running It
-Download Unity >= 2021.2.14f
-Clone or Download the project
-The game requires a computer with a mouse and keyboard
+- Positions of food and enemies are randomly selected each time helping with replayability.
+- The difficulty of the game changes with time, making it harder
+- The game keeps track of a score
+
+**Running It**
+- Download Unity >= 2021.2.14f
+- Clone or Download the project
+- The game requires a computer with a mouse and keyboard
+
 Project Parts
-Scripts
-CameraMoving – used for rotation and zooming of the camera
-ChangeScore – used for updating the UI
-EatFood – used to keep track of collisions with the food and updating score
-EnemyBehaviour – used for enemy movement and tracking enemy collisions with the player and the world
-MoveCharacter – used for moving the character using rigidbody physics and rotate the movement based on camera position
-ObjectSpawner – used for spawning enemies, keeping tracking of a timer and changing the difficulty of the game
-ScoreKeeper – keeps reference to the player lives, the score and if the game ending is triggered.
-Models & Prefabs
-A model of the cheese downloaded from sketchfab
-Rat and cat models made with Unity primitives
+**Scripts** 
+- CameraMoving – used for rotation and zooming of the camera
+- ChangeScore – used for updating the UI
+- EatFood – used to keep track of collisions with the food and updating score
+- EnemyBehaviour – used for enemy movement and tracking enemy collisions with the player and the world
+- MoveCharacter – used for moving the character using rigidbody physics and rotate the movement based on camera position
+- ObjectSpawner – used for spawning enemies, keeping tracking of a timer and changing the difficulty of the game
+- ScoreKeeper – keeps reference to the player lives, the score and if the game ending is triggered.
+
+**Models & Prefabs**
+- A model of the cheese downloaded from sketchfab
+- Rat and cat models made with Unity primitives
