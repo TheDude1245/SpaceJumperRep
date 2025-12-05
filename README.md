@@ -18,14 +18,12 @@ The idea of the project is a "remaster" (but worse) of the popular game-franchis
 - The game requires a computer with a keyboard
 
 ## Project Parts
-**Scripts** 
-- CameraMoving – used for rotation and zooming of the camera
-- ChangeScore – used for updating the UI
-- EatFood – used to keep track of collisions with the food and updating score
-- EnemyBehaviour – used for enemy movement and tracking enemy collisions with the player and the world
-- MoveCharacter – used for moving the character using rigidbody physics and rotate the movement based on camera position
-- ObjectSpawner – used for spawning enemies, keeping tracking of a timer and changing the difficulty of the game
-- ScoreKeeper – keeps reference to the player lives, the score and if the game ending is triggered.
+**Main/Important Scripts** 
+- PlayerAttack – _Script to handle attacks, and allows the use of Blender file-prefabs directly as attacks_
+- PlayerMovement – _Handles movement, and purposly slows the rotation to mimic skylanders_
+- Damage – _Handles damage universally_
+- Health – _Calculates health for each objetc it's arracged to, based on the set value in the inspector_
+- EnemyChase – _Script to handle how enemies moves (speed, etc.)_
 
 **Models & Prefabs**
 - A model of the cheese downloaded from sketchfab
