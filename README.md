@@ -1,7 +1,6 @@
 # SpaceJumperRep
 
-[![Visual](Images/01_ExampleGame_Rato-Cato.gif)
-](https://youtu.be/C881_FMHc2U)
+Link to a showcase of the game on YouTube: https://youtu.be/C881_FMHc2U
 
 ## **Overview of the Game**
 The idea of the project is a "remaster" (but worse) of the popular game-franchise called Skylanders. The player is set in a world that feels open, filled with life, including various monsters which the player has the defeat. The player guides a fire-element-character in a 3D-world, using keyboard controls (WASD+space + h,j,k,l for attacks). The goal of the game is to explore, collect up to 20.000 coins, and defeat the inal boss. 
