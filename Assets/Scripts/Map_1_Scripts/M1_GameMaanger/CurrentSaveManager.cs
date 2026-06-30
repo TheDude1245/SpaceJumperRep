@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -57,13 +58,25 @@ public class CurrentSaveManager : MonoBehaviour
 
                 bonusPercent = 0,
 
-                lastSceneName = SceneManager.GetActiveScene().name
+                lastSceneName = SceneManager.GetActiveScene().name,
+
+                collectedTrinketIds = new List<string>()
             };
 
             SaveSystem.SaveGame(currentSaveData);
         }
 
+        FixMissingData();
+
         Debug.Log("Loaded save slot: " + currentSaveSlot);
+    }
+
+    private void FixMissingData()
+    {
+        if (currentSaveData.collectedTrinketIds == null)
+        {
+            currentSaveData.collectedTrinketIds = new List<string>();
+        }
     }
 
     public void SaveCurrentGame()
@@ -74,10 +87,60 @@ public class CurrentSaveManager : MonoBehaviour
             return;
         }
 
+        FixMissingData();
+
         currentSaveData.lastSceneName = SceneManager.GetActiveScene().name;
         SaveSystem.SaveGame(currentSaveData);
 
         Debug.Log("Current save saved.");
+    }
+
+    public bool IsTrinketCollected(string trinketId)
+    {
+        if (currentSaveData == null)
+            return false;
+
+        FixMissingData();
+
+        return currentSaveData.collectedTrinketIds.Contains(trinketId);
+    }
+
+    public bool TryCollectTrinket(string trinketId)
+    {
+        if (string.IsNullOrWhiteSpace(trinketId))
+        {
+            Debug.LogWarning("Tried to collect trinket with no ID.");
+            return false;
+        }
+
+        if (currentSaveData == null)
+        {
+            Debug.LogWarning("No current save data found.");
+            return false;
+        }
+
+        FixMissingData();
+
+        if (currentSaveData.collectedTrinketIds.Contains(trinketId))
+        {
+            Debug.Log("Trinket already collected: " + trinketId);
+            return false;
+        }
+
+        currentSaveData.collectedTrinketIds.Add(trinketId);
+
+        currentSaveData.trinketsUnlocked = currentSaveData.collectedTrinketIds.Count;
+
+        if (currentSaveData.trinketsUnlocked > currentSaveData.trinketsTotal)
+        {
+            currentSaveData.trinketsUnlocked = currentSaveData.trinketsTotal;
+        }
+
+        SaveCurrentGame();
+
+        Debug.Log("Collected trinket: " + trinketId);
+
+        return true;
     }
 
     public void SetStoryProgress(int percent)
@@ -97,7 +160,9 @@ public class CurrentSaveManager : MonoBehaviour
         currentSaveData.trinketsUnlocked++;
 
         if (currentSaveData.trinketsUnlocked > currentSaveData.trinketsTotal)
+        {
             currentSaveData.trinketsUnlocked = currentSaveData.trinketsTotal;
+        }
 
         SaveCurrentGame();
     }
@@ -107,7 +172,9 @@ public class CurrentSaveManager : MonoBehaviour
         currentSaveData.cosmeticsUnlocked++;
 
         if (currentSaveData.cosmeticsUnlocked > currentSaveData.cosmeticsTotal)
+        {
             currentSaveData.cosmeticsUnlocked = currentSaveData.cosmeticsTotal;
+        }
 
         SaveCurrentGame();
     }

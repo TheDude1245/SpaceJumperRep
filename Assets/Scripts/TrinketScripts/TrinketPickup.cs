@@ -2,17 +2,34 @@ using UnityEngine;
 
 public class TrinketPickup : MonoBehaviour
 {
+    [Header("Unique Trinket ID")]
+    [SerializeField] private string trinketId;
+
     [Header("Pickup Settings")]
     [SerializeField] private bool destroyAfterPickup = true;
 
     [Header("Optional")]
     [SerializeField] private GameObject pickupEffect;
 
-    private bool hasBeenCollected = false;
+    private bool hasBeenCollectedThisSession = false;
+
+    private void Start()
+    {
+        if (CurrentSaveManager.Instance == null)
+        {
+            Debug.LogWarning("No CurrentSaveManager found when checking trinket: " + trinketId);
+            return;
+        }
+
+        if (CurrentSaveManager.Instance.IsTrinketCollected(trinketId))
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (hasBeenCollected)
+        if (hasBeenCollectedThisSession)
             return;
 
         if (!other.CompareTag("Player"))
@@ -23,7 +40,7 @@ public class TrinketPickup : MonoBehaviour
 
     private void CollectTrinket()
     {
-        hasBeenCollected = true;
+        hasBeenCollectedThisSession = true;
 
         if (CurrentSaveManager.Instance == null)
         {
@@ -31,9 +48,10 @@ public class TrinketPickup : MonoBehaviour
             return;
         }
 
-        CurrentSaveManager.Instance.UnlockTrinket();
+        bool collectedSuccessfully = CurrentSaveManager.Instance.TryCollectTrinket(trinketId);
 
-        Debug.Log("Trinket collected and saved.");
+        if (!collectedSuccessfully)
+            return;
 
         if (pickupEffect != null)
         {
