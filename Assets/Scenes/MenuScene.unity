@@ -438,7 +438,7 @@ GameObject:
   - component: {fileID: 264027243}
   - component: {fileID: 264027242}
   m_Layer: 5
-  m_Name: IconCircle
+  m_Name: IconCircle_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -662,7 +662,7 @@ GameObject:
   - component: {fileID: 313318480}
   - component: {fileID: 313318479}
   m_Layer: 5
-  m_Name: LabelText
+  m_Name: LabelText_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1459,7 +1459,7 @@ GameObject:
   - component: {fileID: 578777202}
   - component: {fileID: 578777201}
   m_Layer: 5
-  m_Name: LabelText
+  m_Name: LabelText_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1761,7 +1761,7 @@ GameObject:
   - component: {fileID: 595206152}
   - component: {fileID: 595206151}
   m_Layer: 5
-  m_Name: PercentText
+  m_Name: PercentText_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1806,7 +1806,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 73%
+  m_text: 2%
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2631,7 +2631,7 @@ GameObject:
   - component: {fileID: 843475016}
   - component: {fileID: 843475015}
   m_Layer: 5
-  m_Name: PercentText
+  m_Name: PercentText_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2903,7 +2903,7 @@ GameObject:
   - component: {fileID: 853203166}
   - component: {fileID: 853203165}
   m_Layer: 5
-  m_Name: IconCircle
+  m_Name: IconCircle_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4113,7 +4113,7 @@ GameObject:
   - component: {fileID: 1148885493}
   - component: {fileID: 1148885492}
   m_Layer: 5
-  m_Name: LabelText
+  m_Name: LabelText_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4798,7 +4798,7 @@ GameObject:
   - component: {fileID: 1470377413}
   - component: {fileID: 1470377412}
   m_Layer: 5
-  m_Name: PercentText
+  m_Name: PercentText_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5380,7 +5380,7 @@ GameObject:
   - component: {fileID: 1667624544}
   - component: {fileID: 1667624543}
   m_Layer: 5
-  m_Name: IconCircle
+  m_Name: IconCircle_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5872,7 +5872,7 @@ GameObject:
   - component: {fileID: 1796738333}
   - component: {fileID: 1796738332}
   m_Layer: 5
-  m_Name: LabelText
+  m_Name: LabelText_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6136,7 +6136,7 @@ GameObject:
   - component: {fileID: 1864445117}
   - component: {fileID: 1864445116}
   m_Layer: 5
-  m_Name: IconCircle
+  m_Name: IconCircle_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6945,7 +6945,7 @@ GameObject:
   - component: {fileID: 2123424349}
   - component: {fileID: 2123424348}
   m_Layer: 5
-  m_Name: PercentText
+  m_Name: PercentText_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
