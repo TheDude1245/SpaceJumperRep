@@ -2395,6 +2395,74 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3051433402196728655, guid: ba84f35b1ecbd1a4d97689e527e67054, type: 3}
+--- !u!1 &931672572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 931672574}
+  - component: {fileID: 931672573}
+  - component: {fileID: 931672575}
+  m_Layer: 0
+  m_Name: GameManagers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &931672573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931672572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e72f23d0199d39b428ae4be9517f2a62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSaveSlot: -1
+  currentSaveData:
+    hasData: 0
+    slotIndex: 0
+    storyPercent: 0
+    trinketsUnlocked: 0
+    trinketsTotal: 0
+    cosmeticsUnlocked: 0
+    cosmeticsTotal: 0
+    bonusPercent: 0
+    lastSceneName: 
+--- !u!4 &931672574
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931672572}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 531.20074, y: 301.47104, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &931672575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931672572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d55ae511a433a54ab5b67e18b8dc267, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1002913223
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5069,3 +5137,4 @@ SceneRoots:
   - {fileID: 670112987}
   - {fileID: 1423450370}
   - {fileID: 295688567}
+  - {fileID: 931672574}

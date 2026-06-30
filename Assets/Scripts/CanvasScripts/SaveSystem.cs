@@ -29,7 +29,7 @@ public static class SaveSystem
                 cosmeticsUnlocked = 0,
                 cosmeticsTotal = 20,
                 bonusPercent = 0,
-                lastSceneName = "TestMapScene"
+                lastSceneName = ""
             };
         }
 
@@ -44,7 +44,7 @@ public static class SaveSystem
             {
                 hasData = false,
                 slotIndex = slotIndex,
-                lastSceneName = "TestMapScene"
+                lastSceneName = ""
             };
         }
 
