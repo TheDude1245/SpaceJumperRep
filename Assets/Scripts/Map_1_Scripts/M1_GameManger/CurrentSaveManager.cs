@@ -143,6 +143,24 @@ public class CurrentSaveManager : MonoBehaviour
         return true;
     }
 
+    public void AddCoins(int amount)
+    {
+        if (amount <= 0)
+            return;
+
+        if (currentSaveData == null)
+        {
+            Debug.LogWarning("No current save data found. Could not add coins.");
+            return;
+        }
+
+        currentSaveData.coins += amount;
+
+        SaveCurrentGame();
+
+        Debug.Log("Added coins: " + amount + ". Total coins: " + currentSaveData.coins);
+    }
+
     public void SetStoryProgress(int percent)
     {
         currentSaveData.storyPercent = Mathf.Clamp(percent, 0, 100);

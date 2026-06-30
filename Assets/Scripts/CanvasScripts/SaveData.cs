@@ -10,6 +10,8 @@ public class SaveData
 
     public int storyPercent;
 
+    public int coins;
+
     public int trinketsUnlocked;
     public int trinketsTotal;
 

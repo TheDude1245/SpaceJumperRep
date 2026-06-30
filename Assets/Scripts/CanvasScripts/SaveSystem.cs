@@ -58,6 +58,8 @@ public static class SaveSystem
 
             storyPercent = 0,
 
+            coins = 0,
+
             trinketsUnlocked = 0,
             trinketsTotal = 40,
 
