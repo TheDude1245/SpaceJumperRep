@@ -39,6 +39,17 @@ public class SaveSelectUI : MonoBehaviour
         DisplaySaveData(loadedSaves[saveIndex]);
     }
 
+    public void RestoreSelectedSavePreview()
+    {
+        if (selectedSaveIndex == -1)
+        {
+            ClearInfoPanel();
+            return;
+        }
+
+        DisplaySaveData(loadedSaves[selectedSaveIndex]);
+    }
+
     public void SelectSave(int saveIndex)
     {
         if (saveIndex < 0 || saveIndex >= loadedSaves.Length)
@@ -114,11 +125,21 @@ public class SaveSelectUI : MonoBehaviour
 
         PlayerPrefs.SetInt("CurrentSaveSlot", selectedSaveIndex);
 
-        string sceneToLoad = string.IsNullOrEmpty(selectedSave.lastSceneName)
-            ? "TestMapScene"
-            : selectedSave.lastSceneName;
+        LoadNextSceneInBuild();
+    }
 
-        SceneManager.LoadScene(sceneToLoad);
+    private void LoadNextSceneInBuild()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+
+        if (nextSceneIndex >= SceneManager.sceneCountInBuildSettings)
+        {
+            Debug.LogError("No next scene exists in Build Settings.");
+            return;
+        }
+
+        SceneManager.LoadScene(nextSceneIndex);
     }
 
     private SaveData CreateNewSave(int slotIndex)
@@ -138,7 +159,7 @@ public class SaveSelectUI : MonoBehaviour
 
             bonusPercent = 0,
 
-            lastSceneName = "TestMapScene"
+            lastSceneName = ""
         };
     }
 }
