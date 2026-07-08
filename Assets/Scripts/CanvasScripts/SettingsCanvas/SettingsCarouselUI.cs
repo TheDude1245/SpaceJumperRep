@@ -7,7 +7,9 @@ public class SettingsCarouselUI : MonoBehaviour
     {
         NormalSettings,
         Collection,
-        Placeholder
+        Placeholder1,
+        Placeholder2,
+        Placeholder3
     }
 
     [System.Serializable]
@@ -25,7 +27,7 @@ public class SettingsCarouselUI : MonoBehaviour
     [SerializeField] private bool loopCarousel = true;
 
     [Header("Layout")]
-    [SerializeField] private float spacing = 280f;
+    [SerializeField] private float spacing = 320f;
     [SerializeField] private float yPosition = 0f;
 
     [Header("Scale")]
@@ -42,22 +44,30 @@ public class SettingsCarouselUI : MonoBehaviour
     [SerializeField] private float transitionSpeed = 12f;
     [SerializeField] private float scrollCooldown = 0.15f;
 
+    [Header("UI Roots")]
+    [SerializeField] private GameObject settingsCarouselRoot;
+    [SerializeField] private GameObject normalSettingsPanel;
+
+    [Header("Menu Flow")]
+    [SerializeField] private MainMenuFlow mainMenuFlow;
+
     [Header("Optional UI")]
     [SerializeField] private TMP_Text selectedCategoryTitleText;
-    [SerializeField] private GameObject normalSettingsPanel;
-    [SerializeField] private GameObject collectionCanvas;
 
     private float nextScrollTime;
 
     private void OnEnable()
     {
+        if (settingsCarouselRoot != null)
+            settingsCarouselRoot.SetActive(true);
+
+        if (normalSettingsPanel != null)
+            normalSettingsPanel.SetActive(false);
+
         if (categories == null || categories.Length == 0)
             return;
 
         selectedIndex = Mathf.Clamp(selectedIndex, 0, categories.Length - 1);
-
-        if (normalSettingsPanel != null)
-            normalSettingsPanel.SetActive(false);
 
         UpdateSelectedCategoryTitle();
         ApplyVisuals(true);
@@ -65,6 +75,9 @@ public class SettingsCarouselUI : MonoBehaviour
 
     private void Update()
     {
+        if (settingsCarouselRoot != null && !settingsCarouselRoot.activeSelf)
+            return;
+
         HandleMouseScroll();
         ApplyVisuals(false);
     }
@@ -96,12 +109,12 @@ public class SettingsCarouselUI : MonoBehaviour
         if (categoryIndex == selectedIndex)
         {
             OpenSelectedCategory();
+            return;
         }
-        else
-        {
-            selectedIndex = categoryIndex;
-            UpdateSelectedCategoryTitle();
-        }
+
+        selectedIndex = categoryIndex;
+        UpdateSelectedCategoryTitle();
+        ApplyVisuals(false);
     }
 
     public void SelectNext()
@@ -138,39 +151,46 @@ public class SettingsCarouselUI : MonoBehaviour
                 OpenCollection();
                 break;
 
-            case CategoryAction.Placeholder:
-                Debug.Log("This settings category is only a placeholder for now: " + selectedCategory.categoryName);
+            case CategoryAction.Placeholder1:
+            case CategoryAction.Placeholder2:
+            case CategoryAction.Placeholder3:
+                Debug.Log("Placeholder category selected: " + selectedCategory.categoryName);
                 break;
         }
     }
 
     private void OpenNormalSettings()
     {
-        if (normalSettingsPanel == null)
-        {
-            Debug.LogWarning("No NormalSettingsPanel assigned.");
-            return;
-        }
+        if (settingsCarouselRoot != null)
+            settingsCarouselRoot.SetActive(false);
 
-        normalSettingsPanel.SetActive(true);
+        if (normalSettingsPanel != null)
+        {
+            normalSettingsPanel.SetActive(true);
+            normalSettingsPanel.transform.SetAsLastSibling();
+        }
     }
 
     private void OpenCollection()
     {
-        if (collectionCanvas == null)
+        if (mainMenuFlow == null)
         {
-            Debug.LogWarning("No CollectionCanvas assigned.");
+            Debug.LogWarning("No MainMenuFlow assigned on SettingsCarouselUI.");
             return;
         }
 
-        collectionCanvas.SetActive(true);
-        gameObject.SetActive(false);
+        mainMenuFlow.ShowCollection();
     }
 
     public void BackToCategories()
     {
         if (normalSettingsPanel != null)
             normalSettingsPanel.SetActive(false);
+
+        if (settingsCarouselRoot != null)
+            settingsCarouselRoot.SetActive(true);
+
+        ApplyVisuals(true);
     }
 
     private void ApplyVisuals(bool instant)
@@ -189,7 +209,6 @@ public class SettingsCarouselUI : MonoBehaviour
             int distance = Mathf.Abs(offset);
 
             float targetX = offset * spacing;
-
             float targetScale = GetScaleForDistance(distance);
             float targetAlpha = GetAlphaForDistance(distance);
 
