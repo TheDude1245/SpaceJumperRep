@@ -7736,7 +7736,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &822749498
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15892,7 +15892,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1372355149
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15927,7 +15927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pageTitleText: {fileID: 109082377}
-  pageTitle: TRINKETS
+  pageTitle: COSMETICS
   selectedItemImage: {fileID: 1453311948}
   selectedItemDescriptionText: {fileID: 1950046169}
   itemSlotTexts:
@@ -17291,7 +17291,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1508700255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17393,8 +17393,8 @@ MonoBehaviour:
   pages:
   - {fileID: 1285412220}
   - {fileID: 822749497}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1372355148}
+  - {fileID: 672647961}
   leftArrowButton: {fileID: 577651364}
   rightArrowButton: {fileID: 1496107452}
   startingPageIndex: 0
