@@ -796,7 +796,7 @@ GameObject:
   - component: {fileID: 236759392}
   - component: {fileID: 236759391}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: CS_Text (TMP)_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2119,7 +2119,7 @@ GameObject:
   - component: {fileID: 461653279}
   - component: {fileID: 461653278}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: CS_Text (TMP)_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2715,7 +2715,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -390.4024, y: -167.11574}
+  m_AnchoredPosition: {x: 208, y: -130}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &546593205
@@ -2762,14 +2762,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1508700259}
-        m_TargetAssemblyTypeName: CollectionBookUI, Assembly-CSharp
-        m_MethodName: PreviousPage
-        m_Mode: 1
+      - m_Target: {fileID: 1285412224}
+        m_TargetAssemblyTypeName: CharacterCollectionPageUI, Assembly-CSharp
+        m_MethodName: SelectCharacter
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -4275,14 +4275,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1508700259}
-        m_TargetAssemblyTypeName: CollectionBookUI, Assembly-CSharp
-        m_MethodName: PreviousPage
-        m_Mode: 1
+      - m_Target: {fileID: 1285412224}
+        m_TargetAssemblyTypeName: CharacterCollectionPageUI, Assembly-CSharp
+        m_MethodName: SelectElement
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -4756,10 +4756,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1508700259}
-        m_TargetAssemblyTypeName: CollectionBookUI, Assembly-CSharp
-        m_MethodName: PreviousPage
-        m_Mode: 1
+      - m_Target: {fileID: 1285412224}
+        m_TargetAssemblyTypeName: CharacterCollectionPageUI, Assembly-CSharp
+        m_MethodName: SelectElement
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6191,7 +6191,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -390.4024, y: -167.11574}
+  m_AnchoredPosition: {x: 102, y: -130}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &892071107
@@ -6238,10 +6238,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1508700259}
-        m_TargetAssemblyTypeName: CollectionBookUI, Assembly-CSharp
-        m_MethodName: PreviousPage
-        m_Mode: 1
+      - m_Target: {fileID: 1285412224}
+        m_TargetAssemblyTypeName: CharacterCollectionPageUI, Assembly-CSharp
+        m_MethodName: SelectCharacter
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6371,14 +6371,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1508700259}
-        m_TargetAssemblyTypeName: CollectionBookUI, Assembly-CSharp
-        m_MethodName: PreviousPage
-        m_Mode: 1
+      - m_Target: {fileID: 1285412224}
+        m_TargetAssemblyTypeName: CharacterCollectionPageUI, Assembly-CSharp
+        m_MethodName: SelectElement
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -6439,7 +6439,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &910641385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6538,7 +6538,7 @@ GameObject:
   - component: {fileID: 927407885}
   - component: {fileID: 927407884}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: CS_Text (TMP)_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6583,7 +6583,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: character 5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8124,14 +8124,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1508700259}
-        m_TargetAssemblyTypeName: CollectionBookUI, Assembly-CSharp
-        m_MethodName: PreviousPage
-        m_Mode: 1
+      - m_Target: {fileID: 1285412224}
+        m_TargetAssemblyTypeName: CharacterCollectionPageUI, Assembly-CSharp
+        m_MethodName: SelectElement
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -9095,6 +9095,7 @@ GameObject:
   - component: {fileID: 1285412221}
   - component: {fileID: 1285412223}
   - component: {fileID: 1285412222}
+  - component: {fileID: 1285412224}
   m_Layer: 5
   m_Name: CharactersPage
   m_TagString: Untagged
@@ -9161,6 +9162,184 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1285412220}
   m_CullTransparentMesh: 1
+--- !u!114 &1285412224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285412220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4848a20663afb054d9108c9b7430256c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shieldText: {fileID: 797802754}
+  heartText: {fileID: 325146528}
+  swordText: {fileID: 832273203}
+  cloverText: {fileID: 988207686}
+  descriptionText: {fileID: 1377229100}
+  characterSlotTexts:
+  - {fileID: 2034435402}
+  - {fileID: 461653278}
+  - {fileID: 1409025833}
+  - {fileID: 236759391}
+  - {fileID: 927407884}
+  fireCharacters:
+  - characterName: zog
+    shield: 1
+    heart: 2
+    sword: 3
+    clover: 4
+    description: zog is strong
+  - characterName: zigma
+    shield: 4
+    heart: 3
+    sword: 2
+    clover: 1
+    description: zigma is also strong
+  - characterName: zogma
+    shield: 3
+    heart: 2
+    sword: 1
+    clover: 4
+    description: Zogma is lava strong
+  - characterName: Zogmerra
+    shield: 2
+    heart: 4
+    sword: 1
+    clover: 2
+    description: Zogmerra is annoying
+  - characterName: Zoggussy
+    shield: 2
+    heart: 3
+    sword: 1
+    clover: 4
+    description: Zoggussy is weird
+  waterCharacters:
+  - characterName: water 1
+    shield: 2
+    heart: 2
+    sword: 1
+    clover: 2
+    description: water 1
+  - characterName: water 1
+    shield: 2
+    heart: 13
+    sword: 4
+    clover: 2
+    description: water 2
+  - characterName: water 3
+    shield: 3
+    heart: 2
+    sword: 3
+    clover: 3
+    description: water 3
+  - characterName: water 4
+    shield: 2
+    heart: 3
+    sword: 6
+    clover: 5
+    description: water 4
+  - characterName: water 5
+    shield: 6
+    heart: 5
+    sword: 2
+    clover: 42
+    description: water 5
+  airCharacters:
+  - characterName: 
+    shield: 0
+    heart: 0
+    sword: 0
+    clover: 0
+    description: 
+  - characterName: 
+    shield: 0
+    heart: 0
+    sword: 0
+    clover: 0
+    description: 
+  - characterName: 
+    shield: 0
+    heart: 0
+    sword: 0
+    clover: 0
+    description: 
+  - characterName: 
+    shield: 0
+    heart: 0
+    sword: 0
+    clover: 0
+    description: 
+  - characterName: 
+    shield: 0
+    heart: 0
+    sword: 0
+    clover: 0
+    description: 
+  earthCharacters:
+  - characterName: 
+    shield: 0
+    heart: 0
+    sword: 0
+    clover: 0
+    description: 
+  - characterName: 
+    shield: 0
+    heart: 0
+    sword: 0
+    clover: 0
+    description: 
+  - characterName: 
+    shield: 0
+    heart: 0
+    sword: 0
+    clover: 0
+    description: 
+  - characterName: 
+    shield: 0
+    heart: 0
+    sword: 0
+    clover: 0
+    description: 
+  - characterName: 
+    shield: 0
+    heart: 0
+    sword: 0
+    clover: 0
+    description: 
+  lifeCharacters:
+  - characterName: 
+    shield: 0
+    heart: 0
+    sword: 0
+    clover: 0
+    description: 
+  - characterName: 
+    shield: 0
+    heart: 0
+    sword: 0
+    clover: 0
+    description: 
+  - characterName: 
+    shield: 0
+    heart: 0
+    sword: 0
+    clover: 0
+    description: 
+  - characterName: 
+    shield: 0
+    heart: 0
+    sword: 0
+    clover: 0
+    description: 
+  - characterName: 
+    shield: 0
+    heart: 0
+    sword: 0
+    clover: 0
+    description: 
 --- !u!1 &1286615102
 GameObject:
   m_ObjectHideFlags: 0
@@ -9231,7 +9410,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -390.4024, y: -167.11574}
+  m_AnchoredPosition: {x: 208, y: -167.11574}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1289615226
@@ -9278,14 +9457,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1508700259}
-        m_TargetAssemblyTypeName: CollectionBookUI, Assembly-CSharp
-        m_MethodName: PreviousPage
-        m_Mode: 1
+      - m_Target: {fileID: 1285412224}
+        m_TargetAssemblyTypeName: CharacterCollectionPageUI, Assembly-CSharp
+        m_MethodName: SelectCharacter
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -9865,7 +10044,7 @@ GameObject:
   - component: {fileID: 1409025834}
   - component: {fileID: 1409025833}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: CS_Text (TMP)_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10583,7 +10762,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1508700255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10938,7 +11117,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -390.4024, y: -167.11574}
+  m_AnchoredPosition: {x: 102, y: -167.11574}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1556937981
@@ -10985,14 +11164,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1508700259}
-        m_TargetAssemblyTypeName: CollectionBookUI, Assembly-CSharp
-        m_MethodName: PreviousPage
-        m_Mode: 1
+      - m_Target: {fileID: 1285412224}
+        m_TargetAssemblyTypeName: CharacterCollectionPageUI, Assembly-CSharp
+        m_MethodName: SelectCharacter
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -12463,7 +12642,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -390.4024, y: -167.11574}
+  m_AnchoredPosition: {x: 306, y: -130}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1891191833
@@ -12510,14 +12689,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1508700259}
-        m_TargetAssemblyTypeName: CollectionBookUI, Assembly-CSharp
-        m_MethodName: PreviousPage
-        m_Mode: 1
+      - m_Target: {fileID: 1285412224}
+        m_TargetAssemblyTypeName: CharacterCollectionPageUI, Assembly-CSharp
+        m_MethodName: SelectCharacter
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -13051,14 +13230,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1508700259}
-        m_TargetAssemblyTypeName: CollectionBookUI, Assembly-CSharp
-        m_MethodName: PreviousPage
-        m_Mode: 1
+      - m_Target: {fileID: 1285412224}
+        m_TargetAssemblyTypeName: CharacterCollectionPageUI, Assembly-CSharp
+        m_MethodName: SelectElement
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -13385,7 +13564,7 @@ GameObject:
   - component: {fileID: 2034435403}
   - component: {fileID: 2034435402}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: CS_Text (TMP)_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13430,7 +13609,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: character 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
