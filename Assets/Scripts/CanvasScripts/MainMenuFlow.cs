@@ -9,6 +9,7 @@ public class MainMenuFlow : MonoBehaviour
     [SerializeField] private GameObject settingsCanvas;
     [SerializeField] private GameObject collectionCanvas;
     [SerializeField] private GameObject loadingCanvas;
+    [SerializeField] private GameObject characterSelectCanvas;
 
     private GameObject currentCanvas;
 
@@ -37,6 +38,11 @@ public class MainMenuFlow : MonoBehaviour
         ShowCanvas(collectionCanvas);
     }
 
+    public void ShowCharacterSelect()
+    {
+        ShowCanvas(characterSelectCanvas);
+    }
+
     public void StartSelectedSave()
     {
         ShowCanvas(loadingCanvas);
@@ -59,6 +65,7 @@ public class MainMenuFlow : MonoBehaviour
         settingsCanvas.SetActive(false);
         collectionCanvas.SetActive(false);
         loadingCanvas.SetActive(false);
+        characterSelectCanvas.SetActive(false);
 
         canvasToShow.SetActive(true);
         currentCanvas = canvasToShow;

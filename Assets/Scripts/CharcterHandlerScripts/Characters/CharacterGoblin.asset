@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63605b63ee265241a1f0d3a64ba4bd3, type: 3}
+  m_Name: CharacterGoblin
+  m_EditorClassIdentifier: 
+  characterId: goblin
+  displayName: goblino
+  element: 0
+  baseShield: 1
+  baseHeart: 2
+  baseSword: 3
+  baseClover: 4
+  description: x
+  characterPoseImage: {fileID: 0}
+  characterIconImage: {fileID: 0}
+  elementStandImage: {fileID: 0}

@@ -14,6 +14,9 @@ public class SaveSelectUI : MonoBehaviour
     [Header("Save Slot Highlights")]
     [SerializeField] private GameObject[] saveSlotHighlights;
 
+    [Header("Menu Flow")]
+    [SerializeField] private MainMenuFlow mainMenuFlow;
+
     private SaveData[] loadedSaves = new SaveData[4];
     private int selectedSaveIndex = -1;
 
@@ -125,7 +128,13 @@ public class SaveSelectUI : MonoBehaviour
 
         PlayerPrefs.SetInt("CurrentSaveSlot", selectedSaveIndex);
 
-        LoadNextSceneInBuild();
+        if (mainMenuFlow == null)
+        {
+            Debug.LogWarning("No MainMenuFlow assigned.");
+            return;
+        }
+
+        mainMenuFlow.ShowCharacterSelect();
     }
 
     private void LoadNextSceneInBuild()
