@@ -22,4 +22,7 @@ public class CharacterData : ScriptableObject
     public Sprite characterPoseImage;
     public Sprite characterIconImage;
     public Sprite elementStandImage;
+
+    [Header("Gameplay")]
+    public GameObject characterPrefab;
 }

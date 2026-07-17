@@ -23,3 +23,4 @@ MonoBehaviour:
   characterPoseImage: {fileID: 0}
   characterIconImage: {fileID: 0}
   elementStandImage: {fileID: 0}
+  characterPrefab: {fileID: 3798926099214549148, guid: 45367a8d233769a4bb3b28c081e25c05, type: 3}
