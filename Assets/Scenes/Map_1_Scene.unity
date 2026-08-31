@@ -557,7 +557,7 @@ Transform:
   m_GameObject: {fileID: 122200605}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -745.41, y: 398.02, z: -181.32}
+  m_LocalPosition: {x: -600, y: 390, z: -392}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -575,14 +575,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af86cac3eb11c784b873c5fab8125b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 19.6
+  radius: 25.8
   priority: 1
-  distance: 25
-  height: 18
-  angle: -180
+  distance: 40
+  height: 1
+  angle: -400
   fov: 60
-  lookDownOffset: 4.5
-  gizmoColor: {r: 1, g: 0, b: 0, a: 1}
+  lookDownOffset: 7
+  gizmoColor: {r: 1, g: 0.8156863, b: 0, a: 1}
 --- !u!23 &122200608
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -664,7 +664,7 @@ Transform:
   m_GameObject: {fileID: 126330570}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -772.6, y: 394.06, z: -255.52}
+  m_LocalPosition: {x: -553, y: 390, z: -410}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -682,14 +682,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af86cac3eb11c784b873c5fab8125b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 55
+  radius: 30
   priority: 1
-  distance: 25
-  height: 18
-  angle: 180
+  distance: 43
+  height: 26
+  angle: -278
   fov: 60
-  lookDownOffset: 4.5
-  gizmoColor: {r: 1, g: 0, b: 0, a: 1}
+  lookDownOffset: 10
+  gizmoColor: {r: 1, g: 0.8156863, b: 0, a: 1}
 --- !u!23 &126330573
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1675,7 +1675,7 @@ Transform:
   m_GameObject: {fileID: 514230958}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -729.27, y: 398.02, z: -121.86}
+  m_LocalPosition: {x: -582.11, y: 416.5, z: -433}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1693,14 +1693,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af86cac3eb11c784b873c5fab8125b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 25.3
+  radius: 25
   priority: 1
-  distance: 25
-  height: 18
-  angle: -120
+  distance: 26
+  height: 23
+  angle: 18
   fov: 60
-  lookDownOffset: 4.5
-  gizmoColor: {r: 1, g: 0, b: 0, a: 1}
+  lookDownOffset: 10
+  gizmoColor: {r: 1, g: 0.8156863, b: 0, a: 1}
 --- !u!23 &514230961
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1754,6 +1754,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 514230958}
   m_Mesh: {fileID: 1777429478221928416, guid: 504b46832c0d8d84ab18e936f1f53a79, type: 3}
+--- !u!1 &529340135 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8578709097331664583, guid: 6fa329591bef31b4c999123e6439c63f, type: 3}
+  m_PrefabInstance: {fileID: 1239289736}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &529340137
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529340135}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1890910595786045333, guid: 6fa329591bef31b4c999123e6439c63f, type: 3}
 --- !u!1 &537207855 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1713748361260194498, guid: ba84f35b1ecbd1a4d97689e527e67054, type: 3}
@@ -2607,7 +2634,7 @@ Transform:
   m_GameObject: {fileID: 1010216994}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -720.46, y: 389.5, z: -251.2}
+  m_LocalPosition: {x: -573, y: 390, z: -392}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2627,12 +2654,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 19
   priority: 1
-  distance: 40
-  height: 3
-  angle: 325
+  distance: 6
+  height: 5
+  angle: -180
   fov: 60
-  lookDownOffset: 4.5
-  gizmoColor: {r: 1, g: 0, b: 0, a: 1}
+  lookDownOffset: 3
+  gizmoColor: {r: 1, g: 0.8156863, b: 0, a: 1}
 --- !u!23 &1010216997
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3383,6 +3410,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8578709097331664583, guid: 6fa329591bef31b4c999123e6439c63f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3429,6 +3460,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -2181743766629440291, guid: 6fa329591bef31b4c999123e6439c63f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1922941531}
+    - targetCorrespondingSourceObject: {fileID: 8578709097331664583, guid: 6fa329591bef31b4c999123e6439c63f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 529340137}
     - targetCorrespondingSourceObject: {fileID: -1582570624448275874, guid: 6fa329591bef31b4c999123e6439c63f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1593855490}
@@ -5181,11 +5215,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 40504855}
-  defaultDistance: 8
-  defaultHeight: 5
+  defaultDistance: 11
+  defaultHeight: 8
   defaultAngle: 0
   defaultFov: 60
-  defaultLookDownOffset: 3
+  defaultLookDownOffset: 4
   positionSmoothSpeed: 5
   rotationSmoothSpeed: 7
   fovSmoothSpeed: 5
@@ -5399,7 +5433,7 @@ Transform:
   m_GameObject: {fileID: 1914435828}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 178.06, y: 1.4243857, z: -171.78}
+  m_LocalPosition: {x: 225.01, y: 1.4243857, z: -171.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5689,7 +5723,7 @@ Transform:
   m_GameObject: {fileID: 1971086796}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 172.7, y: 1.9920123, z: -193.8}
+  m_LocalPosition: {x: 224.58, y: 30.89, z: -170.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6420,7 +6454,7 @@ Transform:
   m_GameObject: {fileID: 2127941127}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -750.1, y: 398.02, z: -145.07}
+  m_LocalPosition: {x: -615.25, y: 399.65, z: -400.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6438,14 +6472,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af86cac3eb11c784b873c5fab8125b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 13.1
+  radius: 25
   priority: 1
-  distance: 25
-  height: 18
-  angle: -180
+  distance: 16.85
+  height: 22.5
+  angle: -310.4
   fov: 60
-  lookDownOffset: 4.5
-  gizmoColor: {r: 1, g: 0, b: 0, a: 1}
+  lookDownOffset: 1.98
+  gizmoColor: {r: 1, g: 0.8143114, b: 0, a: 1}
 --- !u!23 &2127941130
 MeshRenderer:
   m_ObjectHideFlags: 0
