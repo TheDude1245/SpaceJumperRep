@@ -1,24 +1,50 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
-public class CrystalEnergySource : MonoBehaviour
+public class CrystalEnergyPushable : MonoBehaviour
 {
+    [Header("Puzzle")]
+    [SerializeField] private CrystalEnergyPuzzle puzzle;
+
+    [Header("Push Movement")]
+    [Tooltip(
+        "The existing PushBlock component that controls " +
+        "rail movement, arrows and physical pushing."
+    )]
+    [SerializeField] private PushBlock pushBlock;
+
     [Header("Beam References")]
+    [Tooltip(
+        "Where this crystal's outgoing beam begins."
+    )]
     [SerializeField] private Transform beamOrigin;
+
+    [Tooltip(
+        "The tapered 3D laser model."
+    )]
     [SerializeField] private Transform beamVisual;
+
+    [Tooltip(
+        "Renderer used for completion fading."
+    )]
     [SerializeField] private Renderer beamRenderer;
 
     [Header("Beam Settings")]
     [SerializeField] private float maxBeamDistance = 20f;
+
+    [Tooltip(
+        "Original Z length of the beam mesh."
+    )]
     [SerializeField] private float beamMeshLength = 1f;
+
     [SerializeField] private float endPadding = 0.02f;
+
     [SerializeField] private LayerMask beamHitMask = ~0;
 
-    [Header("State")]
-    [SerializeField] private bool startActive = true;
+    public bool IsReceivingEnergy { get; private set; }
 
-    public bool IsActive { get; private set; }
     public bool HasHit { get; private set; }
+
     public RaycastHit LastHit { get; private set; }
 
     private Vector3 originalBeamScale;
@@ -29,6 +55,7 @@ public class CrystalEnergySource : MonoBehaviour
     private Component currentEnergyTarget;
 
     private bool completionFadeRunning;
+    private bool movementLockedAfterCompletion;
 
     // =========================================================
     // UNITY
@@ -36,10 +63,20 @@ public class CrystalEnergySource : MonoBehaviour
 
     private void Awake()
     {
+        if (pushBlock == null)
+        {
+            pushBlock =
+                GetComponent<PushBlock>();
+        }
+
         if (beamVisual != null)
         {
             originalBeamScale =
                 beamVisual.localScale;
+
+            beamVisual.gameObject.SetActive(
+                false
+            );
         }
 
         if (beamRenderer == null &&
@@ -58,22 +95,83 @@ public class CrystalEnergySource : MonoBehaviour
 
             originalBeamColor =
                 beamMaterial.color;
+
+            SetBeamAlpha(1f);
         }
 
-        IsActive =
-            startActive;
-
-        SetBeamAlpha(1f);
-
-        UpdateBeamVisibility();
+        IsReceivingEnergy = false;
     }
 
     private void Update()
     {
+        /*
+         * Once the puzzle is solved,
+         * this crystal can no longer be pushed.
+         */
+        if (!movementLockedAfterCompletion &&
+            puzzle != null &&
+            puzzle.IsCompleted)
+        {
+            movementLockedAfterCompletion =
+                true;
+
+            if (pushBlock != null)
+            {
+                pushBlock.LockInPlace();
+            }
+        }
+
         if (completionFadeRunning)
             return;
 
+        if (!IsReceivingEnergy)
+            return;
+
         UpdateBeam();
+    }
+
+    // =========================================================
+    // RECEIVE ENERGY
+    // =========================================================
+
+    public void ReceiveEnergy()
+    {
+        if (IsReceivingEnergy)
+            return;
+
+        IsReceivingEnergy = true;
+
+        SetBeamAlpha(1f);
+
+        if (beamVisual != null)
+        {
+            beamVisual.gameObject.SetActive(
+                true
+            );
+        }
+    }
+
+    public void StopReceivingEnergy()
+    {
+        if (completionFadeRunning)
+            return;
+
+        if (!IsReceivingEnergy)
+            return;
+
+        IsReceivingEnergy = false;
+
+        ClearEnergyTarget();
+
+        HasHit = false;
+        LastHit = default;
+
+        if (beamVisual != null)
+        {
+            beamVisual.gameObject.SetActive(
+                false
+            );
+        }
     }
 
     // =========================================================
@@ -87,20 +185,6 @@ public class CrystalEnergySource : MonoBehaviour
         {
             return;
         }
-
-        if (!IsActive)
-        {
-            ClearEnergyTarget();
-
-            HasHit = false;
-            LastHit = default;
-
-            UpdateBeamVisibility();
-
-            return;
-        }
-
-        UpdateBeamVisibility();
 
         Vector3 origin =
             beamOrigin.position;
@@ -156,6 +240,10 @@ public class CrystalEnergySource : MonoBehaviour
     private void CheckEnergyTarget(
         Collider hitCollider)
     {
+        // -----------------------------------------
+        // Rotating crystal
+        // -----------------------------------------
+
         CrystalEnergyRotator rotator =
             hitCollider.GetComponentInParent<
                 CrystalEnergyRotator
@@ -170,10 +258,19 @@ public class CrystalEnergySource : MonoBehaviour
             return;
         }
 
+        // -----------------------------------------
+        // Another pushable crystal
+        // -----------------------------------------
+
         CrystalEnergyPushable pushable =
             hitCollider.GetComponentInParent<
                 CrystalEnergyPushable
             >();
+
+        if (pushable == this)
+        {
+            pushable = null;
+        }
 
         if (pushable != null)
         {
@@ -183,6 +280,10 @@ public class CrystalEnergySource : MonoBehaviour
 
             return;
         }
+
+        // -----------------------------------------
+        // Final receiver
+        // -----------------------------------------
 
         CrystalEnergyReceiver receiver =
             hitCollider.GetComponentInParent<
@@ -198,6 +299,7 @@ public class CrystalEnergySource : MonoBehaviour
             return;
         }
 
+        // Ordinary geometry.
         ClearEnergyTarget();
     }
 
@@ -303,9 +405,16 @@ public class CrystalEnergySource : MonoBehaviour
         float holdTime,
         float fadeDuration)
     {
-        if (completionFadeRunning)
+        if (completionFadeRunning ||
+            !IsReceivingEnergy)
+        {
             return;
+        }
 
+        /*
+         * Pass completion down the currently
+         * active beam chain.
+         */
         if (currentEnergyTarget
             is CrystalEnergyRotator rotator)
         {
@@ -336,6 +445,11 @@ public class CrystalEnergySource : MonoBehaviour
         float fadeDuration)
     {
         completionFadeRunning = true;
+
+        /*
+         * Stop recalculating this beam while
+         * the completed path fades.
+         */
 
         if (holdTime > 0f)
         {
@@ -388,7 +502,7 @@ public class CrystalEnergySource : MonoBehaviour
             SetBeamAlpha(0f);
         }
 
-        IsActive = false;
+        IsReceivingEnergy = false;
 
         currentEnergyTarget = null;
 
@@ -422,41 +536,6 @@ public class CrystalEnergySource : MonoBehaviour
 
         beamMaterial.color =
             color;
-    }
-
-    // =========================================================
-    // MANUAL STATE
-    // =========================================================
-
-    public void SetBeamActive(
-        bool active)
-    {
-        StopAllCoroutines();
-
-        completionFadeRunning = false;
-
-        IsActive = active;
-
-        if (IsActive)
-        {
-            SetBeamAlpha(1f);
-        }
-        else
-        {
-            ClearEnergyTarget();
-        }
-
-        UpdateBeamVisibility();
-    }
-
-    private void UpdateBeamVisibility()
-    {
-        if (beamVisual == null)
-            return;
-
-        beamVisual.gameObject.SetActive(
-            IsActive
-        );
     }
 
     // =========================================================

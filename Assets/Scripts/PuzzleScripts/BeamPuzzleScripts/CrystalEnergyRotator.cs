@@ -1,8 +1,21 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
-public class CrystalEnergySource : MonoBehaviour
+public class CrystalEnergyRotator : MonoBehaviour, IInteractable
 {
+    [Header("Puzzle")]
+    [SerializeField] private CrystalEnergyPuzzle puzzle;
+
+    [Header("Rotation")]
+    [SerializeField] private Transform rotationPivot;
+
+    [Min(1)]
+    [SerializeField] private int rotationSteps = 8;
+
+    [SerializeField] private float rotationDuration = 0.15f;
+
+    [SerializeField] private bool rotateClockwise = true;
+
     [Header("Beam References")]
     [SerializeField] private Transform beamOrigin;
     [SerializeField] private Transform beamVisual;
@@ -14,10 +27,9 @@ public class CrystalEnergySource : MonoBehaviour
     [SerializeField] private float endPadding = 0.02f;
     [SerializeField] private LayerMask beamHitMask = ~0;
 
-    [Header("State")]
-    [SerializeField] private bool startActive = true;
+    public bool IsReceivingEnergy { get; private set; }
+    public bool IsRotating { get; private set; }
 
-    public bool IsActive { get; private set; }
     public bool HasHit { get; private set; }
     public RaycastHit LastHit { get; private set; }
 
@@ -28,6 +40,9 @@ public class CrystalEnergySource : MonoBehaviour
 
     private Component currentEnergyTarget;
 
+    private Quaternion baseRotation;
+    private int currentRotationStep;
+
     private bool completionFadeRunning;
 
     // =========================================================
@@ -36,10 +51,22 @@ public class CrystalEnergySource : MonoBehaviour
 
     private void Awake()
     {
+        if (rotationPivot == null)
+        {
+            rotationPivot = transform;
+        }
+
+        baseRotation =
+            rotationPivot.localRotation;
+
         if (beamVisual != null)
         {
             originalBeamScale =
                 beamVisual.localScale;
+
+            beamVisual.gameObject.SetActive(
+                false
+            );
         }
 
         if (beamRenderer == null &&
@@ -58,14 +85,14 @@ public class CrystalEnergySource : MonoBehaviour
 
             originalBeamColor =
                 beamMaterial.color;
+
+            SetBeamAlpha(1f);
         }
 
-        IsActive =
-            startActive;
+        IsReceivingEnergy = false;
+        IsRotating = false;
 
-        SetBeamAlpha(1f);
-
-        UpdateBeamVisibility();
+        currentRotationStep = 0;
     }
 
     private void Update()
@@ -73,7 +100,162 @@ public class CrystalEnergySource : MonoBehaviour
         if (completionFadeRunning)
             return;
 
+        if (!IsReceivingEnergy)
+            return;
+
         UpdateBeam();
+    }
+
+    // =========================================================
+    // INTERACTION
+    // =========================================================
+
+    public void Interact(
+        Transform interactor)
+    {
+        if (IsRotating)
+            return;
+
+        if (puzzle != null &&
+            puzzle.IsCompleted)
+        {
+            return;
+        }
+
+        StartCoroutine(
+            RotateOneStep()
+        );
+    }
+
+    private IEnumerator RotateOneStep()
+    {
+        IsRotating = true;
+
+        int stepDirection =
+            rotateClockwise
+                ? 1
+                : -1;
+
+        currentRotationStep +=
+            stepDirection;
+
+        currentRotationStep =
+            ((currentRotationStep %
+              rotationSteps)
+             + rotationSteps)
+            % rotationSteps;
+
+        float degreesPerStep =
+            360f /
+            rotationSteps;
+
+        float targetY =
+            currentRotationStep *
+            degreesPerStep *
+            (rotateClockwise
+                ? 1f
+                : -1f);
+
+        Quaternion startRotation =
+            rotationPivot.localRotation;
+
+        Quaternion targetRotation =
+            baseRotation *
+            Quaternion.Euler(
+                0f,
+                targetY,
+                0f
+            );
+
+        if (rotationDuration <= 0f)
+        {
+            rotationPivot.localRotation =
+                targetRotation;
+
+            IsRotating = false;
+
+            yield break;
+        }
+
+        float elapsed = 0f;
+
+        while (elapsed <
+               rotationDuration)
+        {
+            elapsed +=
+                Time.deltaTime;
+
+            float t =
+                Mathf.Clamp01(
+                    elapsed /
+                    rotationDuration
+                );
+
+            t =
+                Mathf.SmoothStep(
+                    0f,
+                    1f,
+                    t
+                );
+
+            rotationPivot.localRotation =
+                Quaternion.Slerp(
+                    startRotation,
+                    targetRotation,
+                    t
+                );
+
+            yield return null;
+        }
+
+        rotationPivot.localRotation =
+            targetRotation;
+
+        IsRotating = false;
+    }
+
+    // =========================================================
+    // RECEIVE ENERGY
+    // =========================================================
+
+    public void ReceiveEnergy()
+    {
+        if (IsReceivingEnergy)
+            return;
+
+        IsReceivingEnergy = true;
+
+        SetBeamAlpha(1f);
+
+        if (beamVisual != null)
+        {
+            beamVisual.gameObject.SetActive(
+                true
+            );
+        }
+    }
+
+    public void StopReceivingEnergy()
+    {
+        if (completionFadeRunning)
+            return;
+
+        if (!IsReceivingEnergy)
+            return;
+
+        IsReceivingEnergy = false;
+
+        ClearEnergyTarget();
+
+        HasHit = false;
+        LastHit = default;
+
+        if (beamVisual != null)
+        {
+            beamVisual.gameObject.SetActive(
+                false
+            );
+        }
     }
 
     // =========================================================
@@ -87,20 +269,6 @@ public class CrystalEnergySource : MonoBehaviour
         {
             return;
         }
-
-        if (!IsActive)
-        {
-            ClearEnergyTarget();
-
-            HasHit = false;
-            LastHit = default;
-
-            UpdateBeamVisibility();
-
-            return;
-        }
-
-        UpdateBeamVisibility();
 
         Vector3 origin =
             beamOrigin.position;
@@ -117,7 +285,6 @@ public class CrystalEnergySource : MonoBehaviour
                 QueryTriggerInteraction.Ignore))
         {
             HasHit = true;
-
             LastHit = hit;
 
             float beamLength =
@@ -138,7 +305,6 @@ public class CrystalEnergySource : MonoBehaviour
         else
         {
             HasHit = false;
-
             LastHit = default;
 
             SetBeamLength(
@@ -160,6 +326,11 @@ public class CrystalEnergySource : MonoBehaviour
             hitCollider.GetComponentInParent<
                 CrystalEnergyRotator
             >();
+
+        if (rotator == this)
+        {
+            rotator = null;
+        }
 
         if (rotator != null)
         {
@@ -303,8 +474,11 @@ public class CrystalEnergySource : MonoBehaviour
         float holdTime,
         float fadeDuration)
     {
-        if (completionFadeRunning)
+        if (completionFadeRunning ||
+            !IsReceivingEnergy)
+        {
             return;
+        }
 
         if (currentEnergyTarget
             is CrystalEnergyRotator rotator)
@@ -388,7 +562,7 @@ public class CrystalEnergySource : MonoBehaviour
             SetBeamAlpha(0f);
         }
 
-        IsActive = false;
+        IsReceivingEnergy = false;
 
         currentEnergyTarget = null;
 
@@ -422,41 +596,6 @@ public class CrystalEnergySource : MonoBehaviour
 
         beamMaterial.color =
             color;
-    }
-
-    // =========================================================
-    // MANUAL STATE
-    // =========================================================
-
-    public void SetBeamActive(
-        bool active)
-    {
-        StopAllCoroutines();
-
-        completionFadeRunning = false;
-
-        IsActive = active;
-
-        if (IsActive)
-        {
-            SetBeamAlpha(1f);
-        }
-        else
-        {
-            ClearEnergyTarget();
-        }
-
-        UpdateBeamVisibility();
-    }
-
-    private void UpdateBeamVisibility()
-    {
-        if (beamVisual == null)
-            return;
-
-        beamVisual.gameObject.SetActive(
-            IsActive
-        );
     }
 
     // =========================================================
