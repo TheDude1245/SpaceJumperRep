@@ -5,35 +5,55 @@ using UnityEngine.Events;
 public class TimedSpikeHazard : MonoBehaviour
 {
     [Header("References")]
-    [Tooltip("The object containing the actual spike mesh.")]
+    [Tooltip(
+        "The object containing the actual moving spike mesh."
+    )]
     [SerializeField] private Transform spikeMover;
 
-    [Tooltip("Position where the spikes are completely hidden/safe.")]
+    [Tooltip(
+        "Position where the spikes are completely hidden."
+    )]
     [SerializeField] private Transform safePoint;
 
-    [Tooltip("Position where the spikes are fully raised.")]
+    [Tooltip(
+        "Position where the spikes are fully raised."
+    )]
     [SerializeField] private Transform activePoint;
 
+    [Tooltip(
+        "Trigger responsible for damaging the player."
+    )]
+    [SerializeField] private SpikeDamageHitbox damageHitbox;
+
     [Header("Timing")]
-    [Tooltip("Extra delay before this trap starts its first cycle.")]
+    [Tooltip(
+        "Delay before this trap starts its first cycle."
+    )]
     [SerializeField] private float startOffset = 0f;
 
-    [Tooltip("How long the spikes remain completely safe.")]
+    [Tooltip(
+        "How long the spikes remain completely safe."
+    )]
     [SerializeField] private float safeDuration = 1.5f;
 
     [Tooltip(
-        "Short pause before the spikes rise. " +
-        "Later this can be used for a warning visual or sound."
+        "Short warning period before the spikes rise."
     )]
     [SerializeField] private float warningDuration = 0.4f;
 
-    [Tooltip("How quickly the spikes rise.")]
+    [Tooltip(
+        "How quickly the spikes shoot upward."
+    )]
     [SerializeField] private float riseDuration = 0.15f;
 
-    [Tooltip("How long the spikes remain fully raised.")]
+    [Tooltip(
+        "How long the spikes remain fully raised."
+    )]
     [SerializeField] private float activeDuration = 1f;
 
-    [Tooltip("How quickly the spikes retract.")]
+    [Tooltip(
+        "How quickly the spikes retract."
+    )]
     [SerializeField] private float retractDuration = 0.25f;
 
     [Header("Behaviour")]
@@ -68,13 +88,23 @@ public class TimedSpikeHazard : MonoBehaviour
         }
 
         /*
-         * Always begin completely hidden.
+         * Start completely hidden and harmless.
          */
         spikeMover.position =
             safePoint.position;
 
-        IsActive = false;
-        IsWarning = false;
+        IsActive =
+            false;
+
+        IsWarning =
+            false;
+
+        if (damageHitbox != null)
+        {
+            damageHitbox.SetDangerous(
+                false
+            );
+        }
 
         cycleRoutine =
             StartCoroutine(
@@ -83,15 +113,15 @@ public class TimedSpikeHazard : MonoBehaviour
     }
 
     // =========================================================
-    // MAIN CYCLE
+    // MAIN LOOP
     // =========================================================
 
     private IEnumerator HazardCycle()
     {
-        /*
-         * Allows duplicated traps to begin
-         * at different points in time.
-         */
+        // =====================================================
+        // INITIAL OFFSET
+        // =====================================================
+
         if (startOffset > 0f)
         {
             yield return new WaitForSeconds(
@@ -105,11 +135,21 @@ public class TimedSpikeHazard : MonoBehaviour
             // SAFE
             // =================================================
 
-            IsActive = false;
-            IsWarning = false;
+            IsActive =
+                false;
+
+            IsWarning =
+                false;
 
             spikeMover.position =
                 safePoint.position;
+
+            if (damageHitbox != null)
+            {
+                damageHitbox.SetDangerous(
+                    false
+                );
+            }
 
             if (safeDuration > 0f)
             {
@@ -122,9 +162,20 @@ public class TimedSpikeHazard : MonoBehaviour
             // WARNING
             // =================================================
 
-            IsWarning = true;
+            IsWarning =
+                true;
 
             onWarning?.Invoke();
+
+            /*
+             * Still harmless during warning.
+             */
+            if (damageHitbox != null)
+            {
+                damageHitbox.SetDangerous(
+                    false
+                );
+            }
 
             if (warningDuration > 0f)
             {
@@ -133,11 +184,23 @@ public class TimedSpikeHazard : MonoBehaviour
                 );
             }
 
-            IsWarning = false;
+            IsWarning =
+                false;
 
             // =================================================
-            // RISE
+            // RISING
             // =================================================
+
+            /*
+             * The instant the spikes begin shooting
+             * upward, they become dangerous.
+             */
+            if (damageHitbox != null)
+            {
+                damageHitbox.SetDangerous(
+                    true
+                );
+            }
 
             yield return MoveSpikes(
                 safePoint.position,
@@ -149,7 +212,8 @@ public class TimedSpikeHazard : MonoBehaviour
             // ACTIVE
             // =================================================
 
-            IsActive = true;
+            IsActive =
+                true;
 
             onActivated?.Invoke();
 
@@ -160,7 +224,23 @@ public class TimedSpikeHazard : MonoBehaviour
                 );
             }
 
-            IsActive = false;
+            // =================================================
+            // BEGIN RETRACTION
+            // =================================================
+
+            IsActive =
+                false;
+
+            /*
+             * As soon as they begin retracting,
+             * they're safe again.
+             */
+            if (damageHitbox != null)
+            {
+                damageHitbox.SetDangerous(
+                    false
+                );
+            }
 
             // =================================================
             // RETRACT
@@ -176,11 +256,11 @@ public class TimedSpikeHazard : MonoBehaviour
                 safePoint.position;
 
             onRetracted?.Invoke();
-
         }
         while (loop);
 
-        cycleRoutine = null;
+        cycleRoutine =
+            null;
     }
 
     // =========================================================
@@ -200,22 +280,21 @@ public class TimedSpikeHazard : MonoBehaviour
             yield break;
         }
 
-        float elapsed = 0f;
+        float elapsed =
+            0f;
 
-        while (elapsed < duration)
+        while (elapsed <
+               duration)
         {
             elapsed +=
                 Time.deltaTime;
 
             float t =
                 Mathf.Clamp01(
-                    elapsed / duration
+                    elapsed /
+                    duration
                 );
 
-            /*
-             * Smooth start/end without making
-             * the spikes feel overly slow.
-             */
             float smoothT =
                 Mathf.SmoothStep(
                     0f,
