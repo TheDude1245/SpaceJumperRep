@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -8,9 +9,31 @@ public class KeyInsertZone : MonoBehaviour
 
     private Collider triggerCollider;
 
-    private PlayerCarryController currentCarrier;
-    private CarryableKey currentKey;
-    private KeyLockSocket currentSocket;
+    /*
+     * All keys that THIS zone has moved
+     * into locks.
+     *
+     * We keep these so they can all return
+     * to the player if the player walks away.
+     */
+    private readonly List<CarryableKey>
+        presentedKeys =
+            new List<CarryableKey>();
+
+    /*
+     * A player may have multiple colliders.
+     *
+     * This prevents one child collider leaving
+     * the trigger from incorrectly returning
+     * all keys while another player collider
+     * is still inside.
+     */
+    private readonly HashSet<Collider>
+        playerCollidersInside =
+            new HashSet<Collider>();
+
+    private PlayerCarryController
+        currentCarrier;
 
     // =========================================================
     // UNITY
@@ -34,46 +57,12 @@ public class KeyInsertZone : MonoBehaviour
     }
 
     // =========================================================
-    // ENTER / STAY
+    // ENTER
     // =========================================================
 
     private void OnTriggerEnter(
         Collider other)
     {
-        TryPresentPlayerKey(
-            other
-        );
-    }
-
-    private void OnTriggerStay(
-        Collider other)
-    {
-        /*
-         * Useful if the player enters without
-         * a key and somehow obtains one while
-         * still inside the zone.
-         */
-        TryPresentPlayerKey(
-            other
-        );
-    }
-
-    private void TryPresentPlayerKey(
-        Collider other)
-    {
-        if (keyDoor == null ||
-            keyDoor.IsUnlocked)
-        {
-            return;
-        }
-
-        if (currentKey != null)
-            return;
-
-        /*
-         * Runtime detection of whichever spawned
-         * player entered this door zone.
-         */
         PlayerCarryController carrier =
             other.GetComponentInParent<
                 PlayerCarryController
@@ -82,34 +71,12 @@ public class KeyInsertZone : MonoBehaviour
         if (carrier == null)
             return;
 
-        if (!carrier.IsCarrying)
-            return;
-
-        CarryableItem carriedItem =
-            carrier.CurrentItem;
-
-        if (carriedItem == null)
-            return;
-
-        CarryableKey key =
-            carriedItem.GetComponent<
-                CarryableKey
-            >();
-
         /*
-         * Bombs and other carried objects are ignored.
+         * Only deal with one player using this
+         * particular door zone at a time.
          */
-        if (key == null)
-            return;
-
-        KeyLockSocket socket =
-            keyDoor.GetNextAvailableLock();
-
-        if (socket == null)
-            return;
-
-        if (!socket.TryPresentKey(
-                key))
+        if (currentCarrier != null &&
+            currentCarrier != carrier)
         {
             return;
         }
@@ -117,11 +84,156 @@ public class KeyInsertZone : MonoBehaviour
         currentCarrier =
             carrier;
 
-        currentKey =
-            key;
+        playerCollidersInside.Add(
+            other
+        );
 
-        currentSocket =
-            socket;
+        PresentAllPossibleKeys(
+            carrier
+        );
+    }
+
+    // =========================================================
+    // STAY
+    // =========================================================
+
+    private void OnTriggerStay(
+        Collider other)
+    {
+        PlayerCarryController carrier =
+            other.GetComponentInParent<
+                PlayerCarryController
+            >();
+
+        if (carrier == null)
+            return;
+
+        if (currentCarrier != null &&
+            currentCarrier != carrier)
+        {
+            return;
+        }
+
+        currentCarrier =
+            carrier;
+
+        playerCollidersInside.Add(
+            other
+        );
+
+        CleanupPresentedKeyList();
+
+        /*
+         * If the player somehow gains another key
+         * while already standing here, or a slot
+         * becomes available, present it too.
+         */
+        PresentAllPossibleKeys(
+            carrier
+        );
+    }
+
+    // =========================================================
+    // PRESENT ALL POSSIBLE KEYS
+    // =========================================================
+
+    private void PresentAllPossibleKeys(
+        PlayerCarryController carrier)
+    {
+        if (carrier == null)
+            return;
+
+        if (keyDoor == null ||
+            keyDoor.IsUnlocked)
+        {
+            return;
+        }
+
+        /*
+         * Safety limit prevents a malformed setup
+         * from ever causing an infinite loop.
+         */
+        int safetyCounter =
+            0;
+
+        int maxAttempts =
+            Mathf.Max(
+                1,
+                carrier.MaxKeys +
+                keyDoor.RequiredKeys
+            );
+
+        while (safetyCounter <
+               maxAttempts)
+        {
+            safetyCounter++;
+
+            // =============================================
+            // GET AN UNUSED KEY
+            // =============================================
+
+            CarryableKey key =
+                carrier.GetAvailableKey();
+
+            if (key == null)
+            {
+                /*
+                 * Player has no more free keys.
+                 */
+                break;
+            }
+
+            // =============================================
+            // GET AN UNUSED LOCK
+            // =============================================
+
+            KeyLockSocket socket =
+                keyDoor.GetNextAvailableLock();
+
+            if (socket == null)
+            {
+                /*
+                 * Door has no more empty locks.
+                 */
+                break;
+            }
+
+            // =============================================
+            // PRESENT
+            // =============================================
+
+            bool presented =
+                socket.TryPresentKey(
+                    key
+                );
+
+            if (!presented)
+            {
+                /*
+                 * Something prevented this socket
+                 * from accepting a key.
+                 *
+                 * Stop rather than repeatedly trying
+                 * the same pair forever.
+                 */
+                break;
+            }
+
+            presentedKeys.Add(
+                key
+            );
+
+            /*
+             * Loop continues.
+             *
+             * Because this key is now marked as
+             * IsPresentedToLock, GetAvailableKey()
+             * will automatically return the NEXT key.
+             *
+             * Likewise, the occupied socket is skipped
+             * by GetNextAvailableLock().
+             */
+        }
     }
 
     // =========================================================
@@ -131,17 +243,13 @@ public class KeyInsertZone : MonoBehaviour
     private void OnTriggerExit(
         Collider other)
     {
-        if (currentCarrier == null ||
-            currentKey == null ||
-            currentSocket == null)
-        {
-            return;
-        }
-
         PlayerCarryController carrier =
             other.GetComponentInParent<
                 PlayerCarryController
             >();
+
+        if (carrier == null)
+            return;
 
         if (carrier !=
             currentCarrier)
@@ -149,30 +257,80 @@ public class KeyInsertZone : MonoBehaviour
             return;
         }
 
+        playerCollidersInside.Remove(
+            other
+        );
+
         /*
-         * If Q has already turned the key,
-         * the socket is permanently unlocked
-         * and nothing should return.
+         * Don't return the keys until the entire
+         * player has actually left the trigger.
          */
-        if (!currentSocket.IsUnlocked)
+        if (playerCollidersInside.Count > 0)
+            return;
+
+        ReturnUnusedKeys();
+
+        currentCarrier =
+            null;
+    }
+
+    // =========================================================
+    // RETURN KEYS
+    // =========================================================
+
+    private void ReturnUnusedKeys()
+    {
+        foreach (CarryableKey key
+                 in presentedKeys)
         {
-            currentSocket.CancelPresentedKey(
-                currentKey
+            if (key == null)
+                continue;
+
+            KeyLockSocket socket =
+                key.CurrentSocket;
+
+            /*
+             * If CurrentSocket is null, that key
+             * has already been permanently committed.
+             */
+            if (socket == null)
+                continue;
+
+            /*
+             * Completed locks keep their key.
+             */
+            if (socket.IsUnlocked)
+                continue;
+
+            socket.CancelPresentedKey(
+                key
             );
         }
 
-        ClearCurrentPresentation();
+        presentedKeys.Clear();
     }
 
-    private void ClearCurrentPresentation()
+    // =========================================================
+    // CLEANUP
+    // =========================================================
+
+    private void CleanupPresentedKeyList()
     {
-        currentCarrier =
-            null;
+        for (int i =
+                 presentedKeys.Count - 1;
+             i >= 0;
+             i--)
+        {
+            CarryableKey key =
+                presentedKeys[i];
 
-        currentKey =
-            null;
-
-        currentSocket =
-            null;
+            if (key == null ||
+                !key.IsPresentedToLock)
+            {
+                presentedKeys.RemoveAt(
+                    i
+                );
+            }
+        }
     }
 }
