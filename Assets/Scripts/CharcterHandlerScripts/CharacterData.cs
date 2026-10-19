@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewCharacterData", menuName = "Game/Character Data")]
@@ -15,13 +16,20 @@ public class CharacterData : ScriptableObject
     public int baseClover;
 
     [Header("Description")]
-    [TextArea]
+    [TextArea(2, 5)]
     public string description;
 
-    [Header("Visuals")]
+    [Header("Character Artwork")]
     public Sprite characterPoseImage;
+    public Sprite silhouettePoseImage;
+    public Sprite selectedImage;
     public Sprite characterIconImage;
+
+    [Header("Elemental Artwork")]
     public Sprite elementStandImage;
+
+    [Header("Character Audio")]
+    public AudioClip selectionVoiceLine;
 
     [Header("Gameplay")]
     public GameObject characterPrefab;

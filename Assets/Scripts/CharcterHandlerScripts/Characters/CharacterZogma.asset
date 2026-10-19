@@ -20,7 +20,10 @@ MonoBehaviour:
   baseSword: 2
   baseClover: 5
   description: xxx
-  characterPoseImage: {fileID: 0}
-  characterIconImage: {fileID: 0}
-  elementStandImage: {fileID: 0}
+  characterPoseImage: {fileID: 5748365043679915519, guid: fa13df94d34e575458b19f920add6672, type: 3}
+  silhouettePoseImage: {fileID: -3540049140041077696, guid: 008c8ed355939c544b2ef781e98e63e2, type: 3}
+  selectedImage: {fileID: -1405800220994563952, guid: ee2f2acfc03599044ab532380e9060ac, type: 3}
+  characterIconImage: {fileID: -3021579905178006339, guid: 5b8cc453e83645f4aba7c00e912f44ba, type: 3}
+  elementStandImage: {fileID: 2494311522512580445, guid: 7bae85be6410cf14d8c1e188fee3b17e, type: 3}
+  selectionVoiceLine: {fileID: 0}
   characterPrefab: {fileID: 8887945339363240085, guid: 2c3514bb97998834d8b7f5eea1c479fb, type: 3}
