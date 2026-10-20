@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63605b63ee265241a1f0d3a64ba4bd3, type: 3}
+  m_Name: CL_Life5
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterData
+  characterId: CL_Life5
+  displayName: Life5
+  element: 4
+  baseShield: 2
+  baseHeart: 2
+  baseSword: 2
+  baseClover: 1
+  description: FireGuy1
+  characterPoseImage: {fileID: 4413943222234060085, guid: 214a74d506af9d74fa4bd5965646c06d, type: 3}
+  silhouettePoseImage: {fileID: -9060635433595526676, guid: 9d4416fd29588644a92247d60a2047df, type: 3}
+  selectedImage: {fileID: 4413943222234060085, guid: 214a74d506af9d74fa4bd5965646c06d, type: 3}
+  selectionVoiceLine: {fileID: 0}
+  characterPrefab: {fileID: 0}

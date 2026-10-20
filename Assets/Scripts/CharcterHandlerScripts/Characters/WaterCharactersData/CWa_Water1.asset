@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63605b63ee265241a1f0d3a64ba4bd3, type: 3}
+  m_Name: CWa_Water1
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterData
+  characterId: CWa_Water1
+  displayName: Water1
+  element: 1
+  baseShield: 2
+  baseHeart: 2
+  baseSword: 2
+  baseClover: 1
+  description: FireGuy1
+  characterPoseImage: {fileID: -2567008980064806687, guid: 7a1917996dfa2d84495dc57049936f6f, type: 3}
+  silhouettePoseImage: {fileID: -2961194600447768361, guid: 4d7951dd566ad864aa062af2fb98a258, type: 3}
+  selectedImage: {fileID: -2567008980064806687, guid: 7a1917996dfa2d84495dc57049936f6f, type: 3}
+  selectionVoiceLine: {fileID: 0}
+  characterPrefab: {fileID: 0}

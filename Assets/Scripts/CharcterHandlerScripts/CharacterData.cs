@@ -23,10 +23,6 @@ public class CharacterData : ScriptableObject
     public Sprite characterPoseImage;
     public Sprite silhouettePoseImage;
     public Sprite selectedImage;
-    public Sprite characterIconImage;
-
-    [Header("Elemental Artwork")]
-    public Sprite elementStandImage;
 
     [Header("Character Audio")]
     public AudioClip selectionVoiceLine;

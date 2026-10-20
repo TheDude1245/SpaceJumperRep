@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63605b63ee265241a1f0d3a64ba4bd3, type: 3}
+  m_Name: CL_Life2
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterData
+  characterId: CL_Life2
+  displayName: Life2
+  element: 4
+  baseShield: 1
+  baseHeart: 2
+  baseSword: 34
+  baseClover: 2
+  description: FireGuy2
+  characterPoseImage: {fileID: -132260406976381393, guid: 747d4919459934e438d38bb12d5ac5d3, type: 3}
+  silhouettePoseImage: {fileID: -4355674804116114977, guid: 0713236c3c619fe45a5875961c9e26d7, type: 3}
+  selectedImage: {fileID: -132260406976381393, guid: 747d4919459934e438d38bb12d5ac5d3, type: 3}
+  selectionVoiceLine: {fileID: 0}
+  characterPrefab: {fileID: 0}

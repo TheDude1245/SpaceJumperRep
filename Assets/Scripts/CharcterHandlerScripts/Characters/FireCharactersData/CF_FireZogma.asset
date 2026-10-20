@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63605b63ee265241a1f0d3a64ba4bd3, type: 3}
+  m_Name: CF_FireZogma
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterData
+  characterId: Fire1
+  displayName: FireGuy1
+  element: 0
+  baseShield: 2
+  baseHeart: 2
+  baseSword: 2
+  baseClover: 1
+  description: FireGuy1
+  characterPoseImage: {fileID: 8340336831751178525, guid: 06188bc3f2574c842b8dffade788ee85, type: 3}
+  silhouettePoseImage: {fileID: 2088580416794083290, guid: a602d9668d146e445a9a58f2ce2fc409, type: 3}
+  selectedImage: {fileID: 8340336831751178525, guid: 06188bc3f2574c842b8dffade788ee85, type: 3}
+  characterIconImage: {fileID: 0}
+  elementStandImage: {fileID: 0}
+  selectionVoiceLine: {fileID: 0}
+  characterPrefab: {fileID: 0}

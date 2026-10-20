@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63605b63ee265241a1f0d3a64ba4bd3, type: 3}
+  m_Name: CA_Air3
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterData
+  characterId: CA_Air3
+  displayName: Air3
+  element: 2
+  baseShield: 2
+  baseHeart: 34
+  baseSword: 2
+  baseClover: 1
+  description: FireGuy4
+  characterPoseImage: {fileID: -6419930420298491356, guid: 75359bd18f27d2a4cb581e3847caa225, type: 3}
+  silhouettePoseImage: {fileID: 4118018190658209375, guid: d9ecd502d0c478946a7579ed5d657016, type: 3}
+  selectedImage: {fileID: -6419930420298491356, guid: 75359bd18f27d2a4cb581e3847caa225, type: 3}
+  selectionVoiceLine: {fileID: 0}
+  characterPrefab: {fileID: 0}
