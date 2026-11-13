@@ -1039,7 +1039,7 @@ MonoBehaviour:
     m_Value:
       m_Type:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":0.0,"y":0.0,"z":0.10000000149011612}'
+      m_SerializableObject: '{"x":0.0,"y":-0.15000000596046448,"z":0.0}'
     m_Space: -1
   m_Property:
     name: _Angle
@@ -1396,7 +1396,7 @@ MonoBehaviour:
     m_Value:
       m_Type:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"r":0.0,"g":32.813941955566406,"b":587.4589233398438,"a":1.0}'
+      m_SerializableObject: '{"r":0.0,"g":6.391863822937012,"b":110.98612976074219,"a":1.0}'
     m_Space: -1
   m_Property:
     name: _color1
